@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1928823986950311204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7.354976, y: 7.354976, z: 7.354976}
   m_Children: []
   m_Father: {fileID: 3173354610994047045}
   m_RootOrder: 0
@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 3173354610994047047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2036941, y: 1.2036941, z: 1.2036941}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8750466989030865854}
   - {fileID: 4668348031117631544}
@@ -128,8 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d08412c738bc34e865e8b5c0e71e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RotationMProperty: _RotationAlpha
   m_EdgeSizeMProperty: _EdgeSize
+  m_FillAlphaMProperty: _FillAlpha
+  m_RotationAlphaMProperty: _RotationAlpha
+  m_CollideDistance: 20
+  m_HalfCircleCollider2D: {fileID: 1536056882938143210}
   m_HalfCircle: {fileID: 1928823986950311204}
 --- !u!1 &7145983043451817191
 GameObject:
@@ -140,7 +143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4668348031117631544}
-  - component: {fileID: 6679123858957312646}
+  - component: {fileID: 1468576018434394931}
   - component: {fileID: 1536056882938143210}
   m_Layer: 0
   m_Name: Collider
@@ -163,14 +166,14 @@ Transform:
   m_Father: {fileID: 3173354610994047045}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &6679123858957312646
+--- !u!60 &1468576018434394931
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7145983043451817191}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -188,10 +191,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.33828822, y: 0.497776}
-      - {x: -0.22025073, y: 0.32408908}
-      - {x: 0.22025073, y: 0.32408908}
-      - {x: 0.33828822, y: 0.497776}
+    - - {x: 0, y: 1}
+      - {x: -0.95105654, y: 0.30901697}
+      - {x: -0.5877852, y: -0.80901706}
+      - {x: 0.58778536, y: -0.80901694}
+      - {x: 0.9510565, y: 0.30901712}
 --- !u!114 &1536056882938143210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,8 +208,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8e6b61b9787454eb5d3f057b6bea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PolygonCollider2D: {fileID: 6679123858957312646}
-  m_Points: -5
-  m_EdgeSize: 0.42
-  m_FillAlpha: 0.81
-  m_RotationAlpha: 0
+  ScaleTransform: {fileID: 8750466989030865854}
+  m_FixedDivisions: 2
+  m_Resolution: 1
+  m_MaxDivisions: 10
+  m_HeightOffset: 0.006
+  m_DynamicDevisions: 1
+  m_Settings:
+    EdgeSize: 3.05
+    FillAlpha: 0.62
+    RotationAlpha: 0.266

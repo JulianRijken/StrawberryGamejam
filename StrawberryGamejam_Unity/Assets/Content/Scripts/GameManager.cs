@@ -16,18 +16,21 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             Obstacle spawnedObstacle = Instantiate(m_ObstaclePrefab);
-            if (spawnedObstacle)        
-                spawnedObstacle.InitializeObstacle(100f, Random.Range(30f,35f), 3.5f, Random.value);
+
+            if (spawnedObstacle)
+            {
+                HalfCircleSettings settings;
+                settings.EdgeSize = 4f;
+                settings.FillAlpha = 0.4f;
+                settings.RotationAlpha = Random.value;
+
+                spawnedObstacle.InitializeObstacle(100f, Random.Range(30f, 35f), settings);
+            }
+
             
 
             yield return new WaitForSeconds(Random.Range(0.5f,0.75f));
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
