@@ -33,11 +33,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EdgeSize: 3
-    - _FillAmmount: 0.32
+    - _EdgeSize: 0.6
+    - _FillAlpha: 0.551
+    - _FillAmmount: 1
+    - _Float1: 1.27
     - _Float4: 0
+    - _NewEdge: 5
     - _Rotation: 0
-    - _RotationAlpha: 0.164
+    - _RotationAlpha: 0
     - __dirty: 0
     - _ttt: 6.44
     m_Colors: []

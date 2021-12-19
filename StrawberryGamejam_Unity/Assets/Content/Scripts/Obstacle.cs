@@ -7,6 +7,8 @@ public class Obstacle : MonoBehaviour
 
     [SerializeField] private string m_RotationMProperty;
     [SerializeField] private string m_EdgeSizeMProperty;
+    [SerializeField] private GameObject m_HalfCircle;
+
 
     private float m_Distance;
     private float m_MoveSpeed;
@@ -17,7 +19,9 @@ public class Obstacle : MonoBehaviour
     private void Awake()
     {
         transform.position = m_Center;
-        m_Matarial = GetComponent<SpriteRenderer>().material;
+        m_Matarial = m_HalfCircle.GetComponent<SpriteRenderer>().material;
+
+        rotateDirection = Random.value > 0.5f ? 1 : -1;
     }
 
 
@@ -25,6 +29,8 @@ public class Obstacle : MonoBehaviour
     {
         UpdateObstacle();
     }
+
+    int rotateDirection;
 
     private void UpdateObstacle()
     {
@@ -37,7 +43,10 @@ public class Obstacle : MonoBehaviour
         else
         {
             transform.localScale = Vector3.one * m_Distance;
+
+            transform.Rotate(Vector3.forward * Time.deltaTime * 100);
         }
+
     }
 
     public void InitializeObstacle(float _startDistance, float _moveSpeed, float _edgeSize, float _rotation)
