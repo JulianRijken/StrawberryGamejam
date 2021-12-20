@@ -5,54 +5,46 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
 
+    [HideInInspector] public HitState CurrentHitState;
+
     [SerializeField] private float m_DeathFether;
-    [SerializeField] private HitState m_HitState;
+    [SerializeField] private Vector2 m_TopPointOffset;
+    [SerializeField] private LayerMask m_CollisionLayer;
 
-    private Vector2 CheckPoint
+    private Vector2 m_TopPoint
     {
-        get
-        {
-            return transform.position + transform.TransformDirection(m_CheckOffset);
-        }
-
+        get { return transform.position + transform.TransformDirection(m_TopPointOffset); }
     }
-    [SerializeField] private Vector2 m_CheckOffset;
 
+    private void FixedUpdate()
+    {
+        RaycastHit2D hit2D = Physics2D.Linecast(m_TopPoint, Vector2.zero, m_CollisionLayer);
+        if(hit2D.collider)
+        {
+            Debug.DrawLine(m_TopPoint, hit2D.point, Color.blue);
+
+            if (hit2D.distance < m_DeathFether)
+                Debug.Log("dead");
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Hit");
-        m_HitState = GetHitState(collision);
-        //Debug.Log(m_HitState);
+        if(collision.collider)
+        {
+            Vector2 direciton = collision.contacts[0].point - (Vector2)transform.position;
+            float Angle = Vector2.SignedAngle(transform.up, direciton);
+
+            Debug.DrawRay(transform.position, direciton.normalized * 20f, Angle > 0f ? Color.green : Color.blue, 10f);
+            CurrentHitState = Angle > 0f ? HitState.Left : HitState.Right;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        m_HitState = HitState.None;
+        CurrentHitState = HitState.None;
     }
 
-    private HitState GetHitState(Collision2D collision)
-    {
-        // No collision is no hit
-        if (!collision.collider)
-            return m_HitState = HitState.None;
-
-
-        Vector2 direciton = collision.contacts[0].point - CheckPoint;
-        float dot = Vector2.Dot(direciton, transform.up);
-
-        Debug.DrawRay(CheckPoint, direciton.normalized * 20f, dot > 0f ? Color.green : Color.blue, 10f);
-        Debug.DrawLine(transform.position, collision.contacts[0].point, Color.red, 10f);
-        Debug.Log(dot);
-
-
-        //// check death 
-        //if (Mathf.Abs(dot) < m_DeathFether)
-        //    return HitState.Dead;
-
-
-        return dot > 0 ? HitState.Left : HitState.Right;
-    }
 
 
     public enum HitState
@@ -65,11 +57,8 @@ public class PlayerCollision : MonoBehaviour
 
 
 
-
-
-
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(CheckPoint, 0.1f);
+        Gizmos.DrawSphere(m_TopPoint, 0.1f);
     }
 }

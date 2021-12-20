@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_RotateSwayDistance;
     [SerializeField] private float m_RotateSwayDampSpeed;
     [SerializeField] private GameObject m_PlayerSprite;
+    [SerializeField] private PlayerCollision m_PlayerCollision;
 
     private Controls m_Controls;
 
@@ -23,10 +24,12 @@ public class PlayerController : MonoBehaviour
         m_Controls.Enable();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
-        float rotateInput = Mathf.Clamp(m_Controls.Player.Rotate.ReadValue<float>() ,- 1f, 1f);
+        float rotateInput = Mathf.Clamp(m_Controls.Player.Rotate.ReadValue<float>() , m_PlayerCollision.CurrentHitState.Equals(PlayerCollision.HitState.Left) ? 0 : -1f, m_PlayerCollision.CurrentHitState.Equals(PlayerCollision.HitState.Right) ? 0 : 1f);
+
+
         float rotateValue = m_RotateSpeed * Time.deltaTime * -rotateInput;
 
         transform.Rotate(Vector3.forward, rotateValue);

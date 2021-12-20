@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EdgeSizeMProperty: _EdgeSize
   m_FillAlphaMProperty: _FillAlpha
   m_RotationAlphaMProperty: _RotationAlpha
-  m_CollideDistance: 20
+  m_CollideDistance: 1000
   m_HalfCircleCollider2D: {fileID: 1536056882938143210}
   m_HalfCircle: {fileID: 1928823986950311204}
 --- !u!1 &7145983043451817191

@@ -60,7 +60,7 @@ public class Obstacle : MonoBehaviour
         }
 
         m_HalfCircle.transform.localScale = Vector3.one * m_Distance;
-
+        Debug.LogWarning("CollideDistance Is Not Correct when scaling edge with");
 
         if(m_Distance < m_CollideDistance)
             m_HalfCircleCollider2D.UpdateCollider();   

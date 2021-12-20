@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour
             if (spawnedObstacle)
             {
                 HalfCircleSettings settings;
-                settings.EdgeSize = 20f;
+                settings.EdgeSize = 20;
                 settings.FillAlpha = 0.4f;
                 settings.RotationAlpha = Random.value;
 
-                spawnedObstacle.InitializeObstacle(100f, Random.Range(30f, 35f), settings);
+                spawnedObstacle.InitializeObstacle(100f, Random.Range(20f, 25f), settings);
             }
 
             
