@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private Controls m_Controls;
 
-    private HitResult m_HitResult;
+    [SerializeField]
+    public CollisionResult show;
 
     private void Awake()
     {
@@ -26,32 +27,29 @@ public class PlayerController : MonoBehaviour
     {
 
         // Update Collision Hit Result
-        m_HitResult = GetHitResult();
+        CollisionResult result = GetHitResult();
+        show = result;
 
 
-        //float min = m_HitResult.Equals(HitResult.Left) ? 0f : -1f;
-        //float max = m_HitResult.Equals(HitResult.Right) ? 0f : 1f;
-        //float rotateInput = Mathf.Clamp(m_Controls.Player.Rotate.ReadValue<float>(), min, max);
         float rotateInput = m_Controls.Player.Rotate.ReadValue<float>();
-
-
         float rotateValue = m_RotateSpeed * Time.fixedDeltaTime * -rotateInput;
 
-        Debug.Log(rotateValue);
-
-        transform.Rotate(Vector3.forward, rotateValue);
-
-        // Update Collision Hit Result
-        m_HitResult = GetHitResult();
-
-        if(m_HitResult.Equals(HitResult.hit))
+        if (result.Side == 0)
         {
-            transform.Rotate(Vector3.forward, -rotateValue);
+            transform.Rotate(Vector3.forward, rotateValue);
+        }
+        else
+        {
+            transform.Rotate(Vector3.forward, result.Side * -1 * (result.AngleFromEdge - m_PlayerWith));
         }
     }
 
-    private HitResult GetHitResult()
+    private CollisionResult GetHitResult()
     {
+
+        CollisionResult result = new CollisionResult();
+        result.InsideRing = false;
+        result.Side = 0;
 
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
 
@@ -68,43 +66,39 @@ public class PlayerController : MonoBehaviour
             float outerEdgeDistanceToPlayerPoint = playerPoint - outerEdgePoint;
             float innerEdgeDistanceToPlayerPoint = playerPoint - innerEdgePoint;
 
+            bool bInsideRing = innerEdgeDistanceToPlayerPoint > 0 && outerEdgeDistanceToPlayerPoint < 0;
 
-            // Check If Inside of ring
-            if (innerEdgeDistanceToPlayerPoint > 0 && outerEdgeDistanceToPlayerPoint < 0)
+
+            // Stop checking obstacles when colliding with one
+            if (bInsideRing)
             {
-
                 float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, s.RotationAlpha * 360f) / 180f);
+                float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, s.RotationAlpha * 360f);
 
-                // Check if player is within the angle of the ring
-                if (dotAwayFromPlayer < s.FillAlpha)
-                {
-                    return HitResult.hit;
-                }
-                else
-                {
-                    float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, s.RotationAlpha * 360f);
-                    float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (s.FillAlpha * 180f));
+                result.InsideRing = true;
+                result.AngleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (s.FillAlpha * 180f));
+                result.InsideAngle = dotAwayFromPlayer < s.FillAlpha;
+                result.Side = angleFromCenter > 0 ? -1: 1;
 
-                    if (angleFromEdge < m_PlayerWith)
-                    {
-                        return angleFromCenter > 0 ? HitResult.Left : HitResult.Right;
-                    }
-                }
+
+                // Break out of all obstacles when inside of one
+                break;
             }
         }
-
-
-        return HitResult.none;
+        
+        return result;
     }
 
-    public enum HitResult
+
+    [System.Serializable]
+    public struct CollisionResult
     {
-        none,
-        hit,
-        Left,
-        Right
-    }
+        public int Side;
+        public bool InsideRing;
+        public bool InsideAngle;
 
+        public float AngleFromEdge;
+    }
 
 }
 
