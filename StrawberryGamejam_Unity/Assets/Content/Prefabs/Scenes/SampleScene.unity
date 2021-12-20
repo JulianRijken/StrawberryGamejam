@@ -283,6 +283,27 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &548738910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8793022498703710365, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+  m_PrefabInstance: {fileID: 8793022500614223082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &548738911
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548738910}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.05}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1353309138
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +468,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1746245753, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002758081489858546, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_TopPointOffset.y
+      value: 0.29
+      objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069316, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -495,13 +524,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-      propertyPath: m_PlayerWith
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-      propertyPath: m_RotateSpeed
-      value: 400
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8793022498703710354, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}

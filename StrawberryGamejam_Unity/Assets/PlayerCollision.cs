@@ -16,17 +16,17 @@ public class PlayerCollision : MonoBehaviour
         get { return transform.position + transform.TransformDirection(m_TopPointOffset); }
     }
 
-    private void FixedUpdate()
-    {
-        RaycastHit2D hit2D = Physics2D.Linecast(m_TopPoint, Vector2.zero, m_CollisionLayer);
-        if(hit2D.collider)
-        {
-            Debug.DrawLine(m_TopPoint, hit2D.point, Color.blue);
+    //private void FixedUpdate()
+    //{
+    //    RaycastHit2D hit2D = Physics2D.Linecast(m_TopPoint, Vector2.zero, m_CollisionLayer);
+    //    if(hit2D.collider)
+    //    {
+    //        Debug.DrawLine(m_TopPoint, hit2D.point, Color.blue);
 
-            if (hit2D.distance < m_DeathFether)
-                Debug.Log("dead");
-        }
-    }
+    //        if (hit2D.distance < m_DeathFether)
+    //            Debug.Log("dead");
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
