@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
             if (spawnedObstacle)
             {
                 HalfCircleSettings settings;
-                settings.EdgeSize = 4f;
+                settings.EdgeSize = 20f;
                 settings.FillAlpha = 0.4f;
                 settings.RotationAlpha = Random.value;
 
@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
 
             
 
-            yield return new WaitForSeconds(Random.Range(0.5f,0.75f));
+            //yield return new WaitForSeconds(Random.Range(0.5f,0.75f));
+            yield return new WaitForSeconds(3);
         }
     }
 

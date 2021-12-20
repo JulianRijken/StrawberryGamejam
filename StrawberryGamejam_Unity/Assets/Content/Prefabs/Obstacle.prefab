@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8750466989030865854}
   - component: {fileID: 7887161863995717450}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HalfCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3173354610994047045}
   - component: {fileID: 2645782909348043247}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4668348031117631544}
   - component: {fileID: 1468576018434394931}
   - component: {fileID: 1536056882938143210}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

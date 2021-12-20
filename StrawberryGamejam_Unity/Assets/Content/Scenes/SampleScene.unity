@@ -283,6 +283,32 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &548738910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8793022498703710365, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+  m_PrefabInstance: {fileID: 8793022500614223082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &548738912
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548738910}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &1353309138
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,12 +474,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6002758081489858546, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-      propertyPath: m_CheckOffset.x
-      value: 0
+      propertyPath: m_TopPoint.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002758081489858546, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_DeathFether
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002758081489858546, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_BottomPoint.y
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6002758081489858546, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_CheckOffset.y
-      value: 0.45
+      value: 0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002758081489858546, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_CollisionLayer.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069316, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_RootOrder
