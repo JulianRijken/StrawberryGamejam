@@ -6,18 +6,40 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     [SerializeField] private Obstacle m_ObstaclePrefab;
+    [SerializeField] private ObstacleGroup testGroup;
+
+    [SerializeField] private float m_SpawnDistance = 100f;
+    [SerializeField] private float m_SpawnSpeed = 50f;
+
+    [SerializeField] private int m_targetFPS = 300;
+
+
+    private Obstacle m_LastSpawnedObstacle;
+    private float m_LastSpawnedDistanceOvershot;
+
+
+    private void Awake()
+    {
+        Application.targetFrameRate = m_targetFPS;
+    }
 
     private void Start()
     {
         StartCoroutine(SpawnEnumerator());
-        Application.targetFrameRate = 300;
 
         Controls controls = new Controls();
         controls.Enable();
         controls.Game.Restart.performed += RestartGame;
-
     }
+
+    private void Update()
+    {
+        // Delete
+        Application.targetFrameRate = m_targetFPS;
+    }
+
 
     private void RestartGame(InputAction.CallbackContext obj)
     {
@@ -27,54 +49,54 @@ public class GameManager : MonoBehaviour
 
 
 
+
     private IEnumerator SpawnEnumerator()
     {
-        while (true)
+        ObstacleGroup obstacleGroup = testGroup;
+
+        for (int repeteObstacle = 0; repeteObstacle < Mathf.Max(1, obstacleGroup.RepeteTimes); repeteObstacle++)
         {
-            // Wait till the end of the frame before spawn
-            yield return new WaitForEndOfFrame();
-
-            Obstacle spawnedObstacle = Instantiate(m_ObstaclePrefab);
-
-            if (spawnedObstacle)
+            //Loop Rings
+            foreach (ObstacleRing ring in testGroup.obstacleRings)
             {
-                HalfCircleSettings settings;
-                settings.EdgeSize = 5f;
-                settings.FillAlpha = 0.5f;
-                settings.RotationAlpha = Random.value;
 
-                spawnedObstacle.InitializeObstacle(100f, 60f, settings);
+                for (int repeteRing = 0; repeteRing < Mathf.Max(1, ring.RepeteTimes); repeteRing++)
+                {
+                    //Loop Obstacles
+                    foreach (ObstacleSettings obstacle in ring.ObstacleSettings)
+                    {
+                        ObstacleSettings spawnObstacle = obstacle;
+                        spawnObstacle.MoveSpeed = m_SpawnSpeed;
+                        spawnObstacle.Distance = m_SpawnDistance - m_LastSpawnedDistanceOvershot;
+
+                        spawnObstacle.EdgeSize += obstacleGroup.GlobalEdgeSize;
+
+                        m_LastSpawnedObstacle = SpawnObstacle(spawnObstacle);
+                    }
+
+
+                    // Wait to spawn next one
+                    if (m_LastSpawnedObstacle)
+                    {
+                        yield return new WaitUntil(() => (m_SpawnDistance - m_LastSpawnedObstacle.Distance) > m_LastSpawnedObstacle.EdgeSize);
+
+                        m_LastSpawnedDistanceOvershot = m_SpawnDistance - m_LastSpawnedObstacle.Distance - m_LastSpawnedObstacle.EdgeSize - (ring.Spacing + obstacleGroup.GlobalSpacing);
+                    }
+                }
             }
 
-
-
-            yield return new WaitForSeconds(0.1f - Time.deltaTime);
         }
+
+
     }
 
 
 
+    private Obstacle SpawnObstacle(ObstacleSettings settings)
+    {
+        Obstacle obstacle = Instantiate(m_ObstaclePrefab, Vector3.zero, Quaternion.identity);
+        obstacle.InitializeObstacle(settings);
 
-//      while (true)
-//        {
-//            // Wait till the end of the frame before spawn
-//            yield return new WaitForEndOfFrame();
-
-//    Obstacle spawnedObstacle = Instantiate(m_ObstaclePrefab);
-
-//            if (spawnedObstacle)
-//            {
-//                HalfCircleSettings settings;
-//    settings.EdgeSize = 5f;
-//                settings.FillAlpha = 0.5f;
-//                settings.RotationAlpha = Random.value;
-
-//                spawnedObstacle.InitializeObstacle(100f, 60f, settings);
-//            }
-
-
-
-//yield return new WaitForSeconds(0.1f - Time.deltaTime);
-//        }
-
+        return obstacle;
+    }
 }

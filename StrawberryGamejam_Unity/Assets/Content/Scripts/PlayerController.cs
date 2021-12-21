@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private Controls m_Controls;
 
-    private void Awake()
+    private void Start()
     {
         m_Controls = new Controls();
         m_Controls.Enable();
@@ -82,11 +82,9 @@ public class PlayerController : MonoBehaviour
         foreach (Obstacle obstacle in obstacles)
         {
 
-            HalfCircleSettings s = obstacle.HalfCircleSettings;
-
             // Check if player is inside of ring
             float outerEdgePoint = obstacle.Distance / 2f;
-            float innerEdgePoint = Mathf.Max(0f, outerEdgePoint - (s.EdgeSize / 2f));
+            float innerEdgePoint = Mathf.Max(0f, outerEdgePoint - (obstacle.EdgeSize / 2f));
             float playerPoint = m_PlayerPointer.transform.localPosition.y;
 
             float outerEdgeDistanceToPlayerPoint = playerPoint - outerEdgePoint;
@@ -94,12 +92,12 @@ public class PlayerController : MonoBehaviour
 
             bool bInsideRing = innerEdgeDistanceToPlayerPoint > 0 && outerEdgeDistanceToPlayerPoint < 0;
 
-            float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, s.RotationAlpha * 360f) / 180f);
-            float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, s.RotationAlpha * 360f);
+            float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.RotationAlpha * 360f) / 180f);
+            float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.RotationAlpha * 360f);
 
 
-            float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (s.FillAlpha * 180f));
-            bool bInsideAngle = dotAwayFromPlayer < s.FillAlpha;
+            float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (obstacle.FillAlpha * 180f));
+            bool bInsideAngle = dotAwayFromPlayer < obstacle.FillAlpha;
             int side = angleFromCenter > 0 ? 1 : -1;
 
 
