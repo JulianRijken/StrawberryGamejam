@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnEnumerator());
+        Application.targetFrameRate = 30;
     }
 
     private IEnumerator SpawnEnumerator()
@@ -21,16 +22,16 @@ public class GameManager : MonoBehaviour
             {
                 HalfCircleSettings settings;
                 settings.EdgeSize = 20f;
-                settings.FillAlpha = Random.value;
+                settings.FillAlpha = 0.5f;
                 settings.RotationAlpha = Random.value;
 
-                spawnedObstacle.InitializeObstacle(100f, 30f, settings);
+                spawnedObstacle.InitializeObstacle(100f, 50f, settings);
             }
 
             
 
             //yield return new WaitForSeconds(Random.Range(0.5f,0.75f));
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
         }
     }
 

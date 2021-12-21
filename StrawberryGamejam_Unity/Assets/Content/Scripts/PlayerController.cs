@@ -19,11 +19,10 @@ public class PlayerController : MonoBehaviour
         m_Controls = new Controls();
         m_Controls.Enable();
 
-        Application.targetFrameRate = 144;
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
 
         // Update Collision Hit Result
@@ -31,17 +30,34 @@ public class PlayerController : MonoBehaviour
         show = result;
 
 
-        float rotateInput = m_Controls.Player.Rotate.ReadValue<float>();
-        float rotateValue = m_RotateSpeed * Time.fixedDeltaTime * -rotateInput;
 
-        if (result.Side == 0)
+        // Handle rotation \\        
+
+        float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
+        float rotateInputDelta = m_RotateSpeed * Time.deltaTime * rotateInput;
+
+        float rotateEdgeDelta = result.Side * (result.AngleFromEdge - m_PlayerWith);
+
+
+        // Clamp rotation delta based on edge distance
+        if(result.Side != 0 && rotateInput != 0)
         {
-            transform.Rotate(Vector3.forward, rotateValue);
+            if (result.Side > 0)
+                rotateInputDelta = Mathf.Min(rotateEdgeDelta, rotateInputDelta);
+            else 
+                rotateInputDelta = Mathf.Max(rotateEdgeDelta, rotateInputDelta);
         }
-        else
-        {
-            transform.Rotate(Vector3.forward, result.Side * -1 * (result.AngleFromEdge - m_PlayerWith));
-        }
+
+        transform.Rotate(Vector3.forward, rotateInputDelta);
+
+
+
+
+
+        // Handle Position \\ 
+
+        Debug.Log("Distance to edge: " + result.InnerEdgeDistanceToPlayerPoint + " | " + " Move Speed: " + (Time.deltaTime * 50f));
+
     }
 
     private CollisionResult GetHitResult()
@@ -78,9 +94,9 @@ public class PlayerController : MonoBehaviour
                 result.InsideRing = true;
                 result.AngleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (s.FillAlpha * 180f));
                 result.InsideAngle = dotAwayFromPlayer < s.FillAlpha;
-                result.Side = angleFromCenter > 0 ? -1: 1;
-
-
+                result.Side = angleFromCenter > 0 ? 1: -1;
+                result.collision = obstacle;
+                result.InnerEdgeDistanceToPlayerPoint = innerEdgeDistanceToPlayerPoint;
                 // Break out of all obstacles when inside of one
                 break;
             }
@@ -93,11 +109,13 @@ public class PlayerController : MonoBehaviour
     [System.Serializable]
     public struct CollisionResult
     {
+        public Obstacle collision;
         public int Side;
         public bool InsideRing;
         public bool InsideAngle;
 
         public float AngleFromEdge;
+        public float InnerEdgeDistanceToPlayerPoint;
     }
 
 }

@@ -497,11 +497,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_PlayerWith
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_RotateSpeed
-      value: 400
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}

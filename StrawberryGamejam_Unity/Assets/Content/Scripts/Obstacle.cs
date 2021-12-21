@@ -39,9 +39,9 @@ public class Obstacle : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
-        Distance -= Time.fixedDeltaTime * m_MoveSpeed;
+        Distance -= Time.deltaTime * m_MoveSpeed;
 
         if (Distance <= 0)
         {
