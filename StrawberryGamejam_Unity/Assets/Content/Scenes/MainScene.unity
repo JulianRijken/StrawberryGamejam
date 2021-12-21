@@ -447,6 +447,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1145940011, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.3003194
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145940011, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.3003194
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145940011, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.3003194
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145940012, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069316, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -494,14 +510,6 @@ PrefabInstance:
     - target: {fileID: 8793022499031069318, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-      propertyPath: m_PlayerWith
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-      propertyPath: m_RotateSpeed
-      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
