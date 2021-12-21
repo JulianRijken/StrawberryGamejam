@@ -13,7 +13,7 @@ public class Obstacle : MonoBehaviour
     public HalfCircleSettings HalfCircleSettings;
 
     public float Distance;
-    private float m_MoveSpeed;
+    public float MoveSpeed;
 
     private Material m_Matarial;
     private Vector3 m_Center = Vector3.zero;
@@ -22,7 +22,7 @@ public class Obstacle : MonoBehaviour
     public void InitializeObstacle(float _startDistance, float _moveSpeed, HalfCircleSettings _settings)
     {
         Distance = _startDistance;
-        m_MoveSpeed = _moveSpeed;
+        MoveSpeed = _moveSpeed;
 
         m_Matarial.SetFloat(m_EdgeSizeMProperty, _settings.EdgeSize);
         m_Matarial.SetFloat(m_FillAlphaMProperty, _settings.FillAlpha);
@@ -41,7 +41,7 @@ public class Obstacle : MonoBehaviour
 
     private void Update()
     {
-        Distance -= Time.deltaTime * m_MoveSpeed;
+        Distance -= Time.deltaTime * MoveSpeed;
 
         if (Distance <= 0)
         {

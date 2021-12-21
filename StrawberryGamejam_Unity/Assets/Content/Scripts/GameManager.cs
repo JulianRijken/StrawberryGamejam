@@ -21,17 +21,17 @@ public class GameManager : MonoBehaviour
             if (spawnedObstacle)
             {
                 HalfCircleSettings settings;
-                settings.EdgeSize = 20f;
-                settings.FillAlpha = 0.5f;
+                settings.EdgeSize = 10f;
+                settings.FillAlpha = 0.8f;
                 settings.RotationAlpha = Random.value;
 
-                spawnedObstacle.InitializeObstacle(100f, 50f, settings);
+                spawnedObstacle.InitializeObstacle(100f,  30, settings);
             }
 
             
 
             //yield return new WaitForSeconds(Random.Range(0.5f,0.75f));
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
         }
     }
 
