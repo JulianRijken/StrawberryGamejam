@@ -21,7 +21,6 @@ public class Obstacle : MonoBehaviour
     [HideInInspector] public float RotationAlpha;
 
 
-
     private void Awake()
     {
         m_Matarial = m_HalfCircle.GetComponent<SpriteRenderer>().material;
@@ -39,21 +38,17 @@ public class Obstacle : MonoBehaviour
         }
 
         m_HalfCircle.transform.localScale = Vector3.one * Distance;
+
+        // Maybe don't do this in update if not needed
+        UpdateMaterialProperties();
     }
 
 
-    public void InitializeObstacle(ObstacleSettings _spawnSettings)
+    private void UpdateMaterialProperties()
     {
-        // Apply Settings
-        MoveSpeed = _spawnSettings.MoveSpeed;
-        Distance = _spawnSettings.Distance;
-        EdgeSize = _spawnSettings.EdgeSize;
-        FillAlpha = _spawnSettings.FillAlpha;
-        RotationAlpha = _spawnSettings.RotationAlpha;
-
-        m_Matarial.SetFloat(m_EdgeSizeMProperty, _spawnSettings.EdgeSize);
-        m_Matarial.SetFloat(m_FillAlphaMProperty, _spawnSettings.FillAlpha);
-        m_Matarial.SetFloat(m_RotationAlphaMProperty, _spawnSettings.RotationAlpha);
+        m_Matarial.SetFloat(m_EdgeSizeMProperty, EdgeSize);
+        m_Matarial.SetFloat(m_FillAlphaMProperty, FillAlpha);
+        m_Matarial.SetFloat(m_RotationAlphaMProperty, RotationAlpha);
     }
 
 }

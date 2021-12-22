@@ -10,21 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72b11fd805e523f489ef7b7df0a680c7, type: 3}
-  m_Name: ObstacleGroup
+  m_Name: TestGroup
   m_EditorClassIdentifier: 
-  SpawnObstacleGroups:
-  - Obstacles:
-    - ObstacleSettings:
-        EdgeSize: 0
-        FillAlpha: 0
-        RotationAlpha: 0
-        MoveSpeed: 0
-        Distance: 0
-      RepeteSettings:
-        RepeteTimes: 1
-        RepeteOffset: 0
-        OffsetMode: 0
-    RepeteSettings:
-      RepeteTimes: 0
-      RepeteOffset: 0
-      OffsetMode: 0
+  GroupSize: 100
+  SpawnObstacles:
+  - FillAlpha: 0.083333336
+    FillAngle: 30
+    RotationAlpha: 0.25
+    RotationAngle: 90
+    EdgeSize: 5
+    DistanceOffset: 0
+    Repeat: 1
+    RepeatAroundTimes: 4
+    RepeatAroundOffset: 0.25
+    RepeatUpTimes: 20
+    RepeatUpOffset: 5
+    RepeatUpAroundOffset: 0.05
