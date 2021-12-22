@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_RotateSwayDistance;
     [SerializeField] private float m_RotateSwayDampSpeed;
     [SerializeField] private GameObject m_PlayerPointer;
+    [SerializeField] private SpriteRenderer m_PlayerSprite;
     [SerializeField] private bool m_CanDie;
 
     private Controls m_Controls;
@@ -49,6 +50,14 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Rotate(Vector3.forward, rotateInputDelta);
+
+        if (m_PlayerSprite)
+        {
+            Quaternion targetRotation = transform.rotation;
+            targetRotation *= Quaternion.Euler(0, 0, rotateInputDelta * m_RotateSwayDistance);
+
+            m_PlayerSprite.transform.rotation = Quaternion.Slerp(m_PlayerSprite.transform.rotation, targetRotation, m_RotateSwayDampSpeed * Time.deltaTime);
+        }
     }
 
 

@@ -8,15 +8,24 @@ public class ObstacleGroup : ScriptableObject
     public float GlobalSpacing;
     public float GlobalEdgeSize;
     public float GlobalRotationAlpha;
-    public ObstacleRing[] obstacleRings;
-    public int RepeteTimes;
+
+    [Header("LoopSettings")]
+    [Min(1)] public int RepeteGroupTimes;
+
+    [Header("")]
+    public ObstacleRing[] Rings;
 }
 
 [System.Serializable]
 public struct ObstacleRing
 {
-    public ObstacleSettings[] ObstacleSettings;
+    [Header("")]
+    public ObstacleSettings[] Obstacles;
+    [Header("RingSettings")]
     public float Spacing;
-    public int RepeteTimes;
+
+    [Header("LoopSettings")]
+    [Min(1)] public int RepeteRingTimes;
+    public float RotateOffsetPerRing;
 
 }

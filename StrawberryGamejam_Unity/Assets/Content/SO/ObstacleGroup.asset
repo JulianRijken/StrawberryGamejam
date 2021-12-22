@@ -12,34 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b11fd805e523f489ef7b7df0a680c7, type: 3}
   m_Name: ObstacleGroup
   m_EditorClassIdentifier: 
-  GlobalSpacing: 20
+  GlobalSpacing: 0
   GlobalEdgeSize: 5
   GlobalRotationAlpha: 0
-  obstacleRings:
-  - ObstacleSettings:
+  RepeteGroupTimes: 4
+  Rings:
+  - Obstacles:
     - EdgeSize: 0
-      FillAlpha: 0.3
-      RotationAlpha: 0.5
-      MoveSpeed: 1
-      Distance: 10
-    - EdgeSize: 0
-      FillAlpha: 0.3
+      FillAlpha: 0.7
       RotationAlpha: 0
-      MoveSpeed: 1
-      Distance: 10
+      MoveSpeed: 0
+      Distance: 0
     Spacing: 0
-    RepeteTimes: 1
-  - ObstacleSettings:
+    RepeteRingTimes: 20
+    RotateOffsetPerRing: 0.1
+  - Obstacles:
     - EdgeSize: 0
-      FillAlpha: 0.3
-      RotationAlpha: 0.75
-      MoveSpeed: 1
-      Distance: 10
-    - EdgeSize: 0
-      FillAlpha: 0.3
-      RotationAlpha: 0.25
-      MoveSpeed: 1
-      Distance: 10
+      FillAlpha: 0.7
+      RotationAlpha: 0
+      MoveSpeed: 0
+      Distance: 0
     Spacing: 0
-    RepeteTimes: 1
-  RepeteTimes: 20
+    RepeteRingTimes: 20
+    RotateOffsetPerRing: -0.1

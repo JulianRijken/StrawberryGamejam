@@ -54,21 +54,24 @@ public class GameManager : MonoBehaviour
     {
         ObstacleGroup obstacleGroup = testGroup;
 
-        for (int repeteObstacle = 0; repeteObstacle < Mathf.Max(1, obstacleGroup.RepeteTimes); repeteObstacle++)
+        for (int repeteObstacle = 0; repeteObstacle < Mathf.Max(1, obstacleGroup.RepeteGroupTimes); repeteObstacle++)
         {
-            //Loop Rings
-            foreach (ObstacleRing ring in testGroup.obstacleRings)
-            {
+            int ringIndex = 0;
 
-                for (int repeteRing = 0; repeteRing < Mathf.Max(1, ring.RepeteTimes); repeteRing++)
+            //Loop Rings
+            foreach (ObstacleRing ring in testGroup.Rings)
+            {
+                for (int repeteRing = 0; repeteRing < Mathf.Max(1, ring.RepeteRingTimes); repeteRing++)
                 {
+
+
                     //Loop Obstacles
-                    foreach (ObstacleSettings obstacle in ring.ObstacleSettings)
+                    foreach (ObstacleSettings obstacle in ring.Obstacles)
                     {
                         ObstacleSettings spawnObstacle = obstacle;
                         spawnObstacle.MoveSpeed = m_SpawnSpeed;
                         spawnObstacle.Distance = m_SpawnDistance - m_LastSpawnedDistanceOvershot;
-
+                        spawnObstacle.RotationAlpha += Mathf.Repeat(ring.RotateOffsetPerRing *  ringIndex, 1f);
                         spawnObstacle.EdgeSize += obstacleGroup.GlobalEdgeSize;
 
                         m_LastSpawnedObstacle = SpawnObstacle(spawnObstacle);
@@ -82,7 +85,9 @@ public class GameManager : MonoBehaviour
 
                         m_LastSpawnedDistanceOvershot = m_SpawnDistance - m_LastSpawnedObstacle.Distance - m_LastSpawnedObstacle.EdgeSize - (ring.Spacing + obstacleGroup.GlobalSpacing);
                     }
-                }
+
+                    ringIndex++;
+                }        
             }
 
         }
