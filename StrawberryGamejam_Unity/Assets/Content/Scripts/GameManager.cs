@@ -52,65 +52,67 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnEnumerator()
     {
-        ObstacleGroup obstacleGroup = testGroup;
+        yield return null;
 
-        // Repete Obstacle \\
-        for (int obstacleRepeteIndex = 0; obstacleRepeteIndex < Mathf.Max(1, obstacleGroup.loopSettings.RepeteTimes); obstacleRepeteIndex++)
-        {
+        //ObstacleGroup obstacleGroup = testGroup;
 
-            // Ring Spawn Loop \\
-            for (int ringIndex = 0; ringIndex < testGroup.Rings.Length; ringIndex++)
-            {
-                ObstacleRing ring = testGroup.Rings[ringIndex];
+        //// Repete Obstacle \\
+        //for (int obstacleRepeteIndex = 0; obstacleRepeteIndex < Mathf.Max(1, obstacleGroup.loopSettings.RepeteTimes); obstacleRepeteIndex++)
+        //{
 
-                // Repete Ring \\
-                for (int ringRepeteIndex = 0; ringRepeteIndex < Mathf.Max(1, ring.loopSettings.RepeteTimes); ringRepeteIndex++)
-                {
+        //    // Ring Spawn Loop \\
+        //    for (int ringIndex = 0; ringIndex < testGroup.Rings.Length; ringIndex++)
+        //    {
+        //        ObstacleRing ring = testGroup.Rings[ringIndex];
+
+        //        // Repete Ring \\
+        //        for (int ringRepeteIndex = 0; ringRepeteIndex < Mathf.Max(1, ring.loopSettings.RepeteTimes); ringRepeteIndex++)
+        //        {
 
 
 
-                    // Obstacle Spawn Loop \\
-                    for (int obstacleIndex = 0; obstacleIndex < ring.Obstacles.Length; obstacleIndex++)
-                    {
+        //            // Obstacle Spawn Loop \\
+        //            for (int obstacleIndex = 0; obstacleIndex < ring.Obstacles.Length; obstacleIndex++)
+        //            {
                         
-                        ObstacleSettings spawnObstacle = ring.Obstacles[obstacleIndex];
+        //                ObstacleSettings spawnObstacle = ring.Obstacles[obstacleIndex];
 
-                        // Set move speed
-                        spawnObstacle.MoveSpeed = m_SpawnSpeed;
+        //                // Set move speed
+        //                spawnObstacle.MoveSpeed = m_SpawnSpeed;
 
-                        // Set distance
-                        spawnObstacle.Distance = (m_SpawnDistance + spawnObstacle.EdgeSize + obstacleGroup.GlobalEdgeSize + ring.Spacing + obstacleGroup.GlobalSpacing) - m_DistanceOvershot;
+        //                // Set distance
+        //                spawnObstacle.Distance = (m_SpawnDistance + spawnObstacle.EdgeSize + obstacleGroup.GlobalEdgeSize + ring.Spacing + obstacleGroup.GlobalSpacing) - m_DistanceOvershot;
 
-                        // Set rotation
-                        spawnObstacle.RotationAlpha += ring.loopSettings.GetRotateAlpha(ringRepeteIndex);
+        //                // Set rotation
+        //                spawnObstacle.RotationAlpha += ring.loopSettings.GetRotateAlpha(ringRepeteIndex);
 
-                        // Set edgeSize
-                        spawnObstacle.EdgeSize += obstacleGroup.GlobalEdgeSize;
-
-
-                        // Spawn Obstacle \\
-                        m_LastSpawnedObstacle = SpawnObstacle(spawnObstacle);
-                    }
+        //                // Set edgeSize
+        //                spawnObstacle.EdgeSize += obstacleGroup.GlobalEdgeSize;
 
 
+        //                // Spawn Obstacle \\
+        //                m_LastSpawnedObstacle = SpawnObstacle(spawnObstacle);
+        //            }
 
 
-                    // Ring Spawn Delay \\
-                    if (m_LastSpawnedObstacle)
-                    {
-                        // Compensate for lack of frames
-                        if (m_LastSpawnedObstacle.Distance > m_SpawnDistance)
-                        {
-                            yield return new WaitUntil(() => m_LastSpawnedObstacle.Distance < m_SpawnDistance);
-                            m_DistanceOvershot = m_SpawnDistance - m_LastSpawnedObstacle.Distance;
-                        }
-                    }
 
 
-                }
-            }
+        //            // Ring Spawn Delay \\
+        //            if (m_LastSpawnedObstacle)
+        //            {
+        //                // Compensate for lack of frames
+        //                if (m_LastSpawnedObstacle.Distance > m_SpawnDistance)
+        //                {
+        //                    yield return new WaitUntil(() => m_LastSpawnedObstacle.Distance < m_SpawnDistance);
+        //                    m_DistanceOvershot = m_SpawnDistance - m_LastSpawnedObstacle.Distance;
+        //                }
+        //            }
 
-        }
+
+        //        }
+        //    }
+
+        //}
     }
 
 
@@ -125,54 +127,3 @@ public class GameManager : MonoBehaviour
 }
 
 
-
-//private IEnumerator SpawnEnumerator()
-//{
-//    ObstacleGroup obstacleGroup = testGroup;
-
-//    // Repete Obstacle \\
-//    for (int obstacleRepeteIndex = 0; obstacleRepeteIndex < Mathf.Max(1, obstacleGroup.loopSettings.RepeteTimes); obstacleRepeteIndex++)
-//    {
-
-//        // Ring Spawn Loop \\
-//        for (int ringIndex = 0; ringIndex < testGroup.Rings.Length; ringIndex++)
-//        {
-//            ObstacleRing ring = testGroup.Rings[ringIndex];
-
-//            // Repete Ring \\
-//            for (int ringRepeteIndex = 0; ringRepeteIndex < Mathf.Max(1, ring.loopSettings.RepeteTimes); ringRepeteIndex++)
-//            {
-
-
-
-//                // Obstacle Spawn Loop \\
-//                for (int obstacleIndex = 0; obstacleIndex < ring.Obstacles.Length; obstacleIndex++)
-//                {
-
-//                    ObstacleSettings spawnObstacle = ring.Obstacles[obstacleIndex];
-//                    spawnObstacle.MoveSpeed = m_SpawnSpeed;
-//                    spawnObstacle.Distance = (m_SpawnDistance - m_LastSpawnedDistanceOvershot) + (spawnObstacle.EdgeSize + obstacleGroup.GlobalEdgeSize);
-
-//                    spawnObstacle.RotationAlpha += ring.loopSettings.GetRotateAlpha(ringRepeteIndex);
-
-//                    spawnObstacle.EdgeSize += obstacleGroup.GlobalEdgeSize;
-
-//                    m_LastSpawnedObstacle = SpawnObstacle(spawnObstacle);
-//                }
-
-
-
-
-//                // Ring Spawn Delay \\
-//                if (m_LastSpawnedObstacle)
-//                {
-//                    yield return new WaitUntil(() => (m_SpawnDistance - m_LastSpawnedObstacle.Distance) > m_LastSpawnedObstacle.EdgeSize);
-//                    m_LastSpawnedDistanceOvershot = (m_SpawnDistance - m_LastSpawnedObstacle.Distance) - (ring.Spacing + obstacleGroup.GlobalSpacing);
-//                }
-
-
-//            }
-//        }
-
-//    }
-//}
