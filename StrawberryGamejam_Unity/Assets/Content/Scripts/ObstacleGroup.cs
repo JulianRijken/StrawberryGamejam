@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ObstacleGroup", menuName = "ScriptableObjects/ObstacleGroup", order = 1)]
@@ -9,8 +7,7 @@ public class ObstacleGroup : ScriptableObject
     public float GlobalEdgeSize;
     public float GlobalRotationAlpha;
 
-    [Header("LoopSettings")]
-    [Min(1)] public int RepeteGroupTimes;
+    public LoopSettings loopSettings;
 
     [Header("")]
     public ObstacleRing[] Rings;
@@ -24,8 +21,29 @@ public struct ObstacleRing
     [Header("RingSettings")]
     public float Spacing;
 
-    [Header("LoopSettings")]
-    [Min(1)] public int RepeteRingTimes;
-    public float RotateOffsetPerRing;
+    public LoopSettings loopSettings;
+}
 
+[System.Serializable]
+public struct LoopSettings
+{
+    [Min(1)] public int RepeteTimes;
+    public float RepeteOffset;
+    public OffsetMode OffsetMode;
+
+    public float GetRotateAlpha(int _repeteIndex)
+    {
+        if (RepeteOffset == 0)
+            return 0f;
+
+        float rotationOffset = OffsetMode.Equals(OffsetMode.Add) ? RepeteOffset * _repeteIndex : (_repeteIndex / (float)RepeteTimes) * RepeteOffset;
+        return Mathf.Repeat(rotationOffset, 1f);
+    }
+}
+
+[System.Serializable]
+public enum OffsetMode
+{
+    Add,
+    OverRepeteTimes
 }

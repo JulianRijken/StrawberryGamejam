@@ -15,23 +15,35 @@ MonoBehaviour:
   GlobalSpacing: 0
   GlobalEdgeSize: 5
   GlobalRotationAlpha: 0
-  RepeteGroupTimes: 4
+  loopSettings:
+    RepeteTimes: 3
+    RepeteOffset: 0
+    OffsetMode: 0
   Rings:
   - Obstacles:
     - EdgeSize: 0
-      FillAlpha: 0.7
+      FillAlpha: 0.3
       RotationAlpha: 0
       MoveSpeed: 0
       Distance: 0
-    Spacing: 0
-    RepeteRingTimes: 20
-    RotateOffsetPerRing: 0.1
+    - EdgeSize: 0
+      FillAlpha: 0.3
+      RotationAlpha: 0.5
+      MoveSpeed: 0
+      Distance: 0
+    Spacing: 30
+    loopSettings:
+      RepeteTimes: 5
+      RepeteOffset: 0.25
+      OffsetMode: 0
   - Obstacles:
     - EdgeSize: 0
-      FillAlpha: 0.7
+      FillAlpha: 0.8
       RotationAlpha: 0
       MoveSpeed: 0
       Distance: 0
-    Spacing: 0
-    RepeteRingTimes: 20
-    RotateOffsetPerRing: -0.1
+    Spacing: 5
+    loopSettings:
+      RepeteTimes: 20
+      RepeteOffset: 1
+      OffsetMode: 1

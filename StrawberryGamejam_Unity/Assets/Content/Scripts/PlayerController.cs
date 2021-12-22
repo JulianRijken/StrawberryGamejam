@@ -21,7 +21,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Update Collision Hit Result
-        CollisionResult collisionResult = GetHitResult();
+        CollisionResult collisionResult = GetCollisionResult();
+
+        if (collisionResult.FatalObjstacle)
+        {
+            collisionResult.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        }
+
 
         HandleRotation(collisionResult);
 
@@ -54,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (m_PlayerSprite)
         {
             Quaternion targetRotation = transform.rotation;
-            targetRotation *= Quaternion.Euler(0, 0, rotateInputDelta * m_RotateSwayDistance);
+            targetRotation *= Quaternion.Euler(0, 0, (rotateInputDelta / Time.deltaTime) * m_RotateSwayDistance);
 
             m_PlayerSprite.transform.rotation = Quaternion.Slerp(m_PlayerSprite.transform.rotation, targetRotation, m_RotateSwayDampSpeed * Time.deltaTime);
         }
@@ -80,7 +86,7 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private CollisionResult GetHitResult()
+    private CollisionResult GetCollisionResult()
     {
 
         CollisionResult result = new CollisionResult();
@@ -126,9 +132,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (result.FatalObjstacleDistance < Mathf.Abs(innerEdgeDistanceToPlayerPoint)  || !result.FatalObjstacle)
                 {
-                    result.FatalObjstacle = obstacle;
+                    if (outerEdgeDistanceToPlayerPoint < 0)
+                    {
+                        result.FatalObjstacle = obstacle;
 
-                    result.FatalObjstacleDistance = innerEdgeDistanceToPlayerPoint;
+                        result.FatalObjstacleDistance = innerEdgeDistanceToPlayerPoint;
+                    }
                 }
             }
         }

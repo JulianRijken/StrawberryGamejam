@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ObstaclePrefab: {fileID: 2645782909348043247, guid: 6c264b2597dedde4fb84675752116e64, type: 3}
   testGroup: {fileID: 11400000, guid: f013cdcb16a236943b48f57cf4ebc1e7, type: 2}
-  m_SpawnDistance: 100
+  m_SpawnDistance: 150
   m_SpawnSpeed: 60
   m_targetFPS: 300
 --- !u!4 &310440615
@@ -522,11 +522,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_CanDie
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_PlayerSprite
       value: 
       objectReference: {fileID: 1394805317}
+    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_RotateSwayDistance
+      value: 0.07
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
