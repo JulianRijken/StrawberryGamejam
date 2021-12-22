@@ -13,37 +13,21 @@ MonoBehaviour:
   m_Name: ObstacleGroup
   m_EditorClassIdentifier: 
   GlobalSpacing: 0
-  GlobalEdgeSize: 5
+  GlobalEdgeSize: 0
   GlobalRotationAlpha: 0
   loopSettings:
-    RepeteTimes: 3
+    RepeteTimes: 5
     RepeteOffset: 0
     OffsetMode: 0
   Rings:
   - Obstacles:
-    - EdgeSize: 0
-      FillAlpha: 0.3
-      RotationAlpha: 0
+    - EdgeSize: 5
+      FillAlpha: 0.15
+      RotationAlpha: 0.05
       MoveSpeed: 0
       Distance: 0
-    - EdgeSize: 0
-      FillAlpha: 0.3
-      RotationAlpha: 0.5
-      MoveSpeed: 0
-      Distance: 0
-    Spacing: 30
+    Spacing: 20
     loopSettings:
-      RepeteTimes: 5
-      RepeteOffset: 0.25
+      RepeteTimes: 2
+      RepeteOffset: -0.1
       OffsetMode: 0
-  - Obstacles:
-    - EdgeSize: 0
-      FillAlpha: 0.8
-      RotationAlpha: 0
-      MoveSpeed: 0
-      Distance: 0
-    Spacing: 5
-    loopSettings:
-      RepeteTimes: 20
-      RepeteOffset: 1
-      OffsetMode: 1

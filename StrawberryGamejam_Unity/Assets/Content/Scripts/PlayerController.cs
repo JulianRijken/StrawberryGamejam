@@ -18,15 +18,25 @@ public class PlayerController : MonoBehaviour
         m_Controls.Enable();
     }
 
+    // Remove
+    private CollisionResult last;
+
     private void Update()
     {
+        if(last.FatalObjstacle)
+        {
+            last.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        }
+
         // Update Collision Hit Result
         CollisionResult collisionResult = GetCollisionResult();
-
+        last = collisionResult;
         if (collisionResult.FatalObjstacle)
         {
             collisionResult.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.red;
         }
+
+
 
 
         HandleRotation(collisionResult);
@@ -57,10 +67,13 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.forward, rotateInputDelta);
 
+
+        float sway = rotateInputDelta == 0f ? 0f : rotateInputDelta > 0f ? 1f : -1f;
+
         if (m_PlayerSprite)
         {
             Quaternion targetRotation = transform.rotation;
-            targetRotation *= Quaternion.Euler(0, 0, (rotateInputDelta / Time.deltaTime) * m_RotateSwayDistance);
+            targetRotation *= Quaternion.Euler(0, 0, sway * m_RotateSwayDistance);
 
             m_PlayerSprite.transform.rotation = Quaternion.Slerp(m_PlayerSprite.transform.rotation, targetRotation, m_RotateSwayDampSpeed * Time.deltaTime);
         }

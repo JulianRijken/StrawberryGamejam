@@ -14,11 +14,11 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private GameObject m_HalfCircle;
 
     // Obstacle Properties 
-    public float MoveSpeed;
-    public float Distance;
-    public float EdgeSize;
-    public float FillAlpha;
-    public float RotationAlpha;
+    [HideInInspector] public float MoveSpeed;
+    [HideInInspector] public float Distance;
+    [HideInInspector] public float EdgeSize;
+    [HideInInspector] public float FillAlpha;
+    [HideInInspector] public float RotationAlpha;
 
 
 
