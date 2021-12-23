@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     [SerializeField] private Obstacle m_ObstaclePrefab;
     [SerializeField] private ObstacleGroup[] m_TestObstacles;
     [SerializeField] private ObstacleGroup m_TestGroup;
@@ -35,11 +34,17 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
+#if UNITY_EDITOR
     private void Update()
     {
-        // Delete
         Application.targetFrameRate = m_targetFPS;
     }
+
+#endif
+
+
 
     private void QuitGame(InputAction.CallbackContext obj)
     {
@@ -106,7 +111,7 @@ public class GameManager : MonoBehaviour
 
 
 
-//    private Obstacle m_LastSpawnedObstacle;
+//private Obstacle m_LastSpawnedObstacle;
 //private float m_DistanceOvershot;
 
 
