@@ -224,7 +224,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b5219c0874815a4189fa3c569aabff6, type: 2}
   - {fileID: 11400000, guid: 4e5d33050c9db854a802e84c9ed46b4c, type: 2}
   - {fileID: 11400000, guid: f013cdcb16a236943b48f57cf4ebc1e7, type: 2}
-  m_TestGroup: {fileID: 0}
+  m_TestGroup: {fileID: 11400000, guid: 2d0e7148057cb4c47b92c38befbd2247, type: 2}
   m_SpawnDistance: 300
   m_SpawnSpeed: 60
   m_GroupSpace: 50
@@ -330,13 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f52c9d9ac774e734a9fae8426883ae77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ColorOptions:
-  - {r: 1, g: 0.3842176, b: 0.2971698, a: 1}
-  - {r: 0.34288022, g: 1, b: 0.25943398, a: 1}
-  - {r: 0, g: 1, b: 0.92101526, a: 1}
-  - {r: 0, g: 0.079182625, b: 1, a: 0}
-  - {r: 0.9082146, g: 1, b: 0.25, a: 0}
-  - {r: 1, g: 0, b: 0.6573992, a: 0}
   m_CameraDistance: -30
   m_SpeedSet:
   - 45
@@ -469,7 +462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -29.099976, y: -21.700012}
+  m_AnchoredPosition: {x: -29.100098, y: -21.699951}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &527689366

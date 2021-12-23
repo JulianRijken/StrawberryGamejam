@@ -10,9 +10,9 @@ public class CameraManager : MonoBehaviour
     //[SerializeField] private float m_angle;
     //[SerializeField] private float m_AngleDist;
 
-    [ColorUsage(false)]
-    [SerializeField] private Color[] m_ColorOptions;
-    private Color m_color;
+    //[ColorUsage(false)]
+    //[SerializeField] private Color[] m_ColorOptions;
+    //private Color m_color;
 
 
     [SerializeField] private float m_CameraDistance;
@@ -25,8 +25,8 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        volume = FindObjectOfType<Volume>();
-        volume.profile.TryGet(out colorAjustment);
+        //volume = FindObjectOfType<Volume>();
+        //volume.profile.TryGet(out colorAjustment);
 
         StartCoroutine(HandeCameraRotation());
     }
@@ -54,13 +54,13 @@ public class CameraManager : MonoBehaviour
 
         
 
-        colorAjustment.colorFilter.value = m_color;
+        //colorAjustment.colorFilter.value = m_color;
 
 
     }
 
-    private Volume volume;
-    private ColorAdjustments colorAjustment;
+    //private Volume volume;
+    //private ColorAdjustments colorAjustment;
 
 
 
@@ -76,8 +76,8 @@ public class CameraManager : MonoBehaviour
             float transitionSpeed = m_TransitonSpeedSet[Random.Range(0, m_TransitonSpeedSet.Length)];
             float timer = 0f;
 
-            Color oldColor = m_color;
-            Color targetColor = m_ColorOptions[Random.Range(0, m_ColorOptions.Length)];
+            //Color oldColor = m_color;
+            //Color targetColor = m_ColorOptions[Random.Range(0, m_ColorOptions.Length)];
             
             while (timer < 1f)
             {
@@ -86,13 +86,13 @@ public class CameraManager : MonoBehaviour
                 timer += Time.deltaTime / transitionSpeed;
 
                 m_CameraRotatateSpeed = Mathf.Lerp(oldRotationSpeed, targetRotationSpeed, timer);
-                m_color = Color.Lerp(oldColor, targetColor, timer);
+                //m_color = Color.Lerp(oldColor, targetColor, timer);
             }
 
 
             m_CameraRotatateSpeed = targetRotationSpeed;
 
-            m_color = targetColor;
+            //m_color = targetColor;
 
             yield return new WaitForSeconds(Random.Range(4f, 8f));
         }

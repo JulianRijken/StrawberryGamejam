@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b11fd805e523f489ef7b7df0a680c7, type: 3}
   m_Name: Cut
   m_EditorClassIdentifier: 
-  GroupSize: 152.5
+  GroupSize: 151.67
   SpawnObstacles:
   - FillAlpha: 0.125
     FillAngle: 45
