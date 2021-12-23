@@ -20,8 +20,8 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        //volume = FindObjectOfType<Volume>();
-        //volume.profile.TryGet(out colorAdjustment);
+        ////volume = FindObjectOfType<Volume>();
+        ////volume.profile.TryGet(out colorAdjustment);
 
         StartCoroutine(HandelCameraRotation());
     }
@@ -31,7 +31,7 @@ public class CameraManager : MonoBehaviour
 
         // Camera Rotation\\
 
-        //Vector2 direction = new Vector2(Mathf.Cos(m_angle * Mathf.Deg2Rad), Mathf.Sin(m_angle * Mathf.Deg2Rad));
+        // Vector2 direction = new Vector2(Mathf.Cos(m_angle * Mathf.Deg2Rad), Mathf.Sin(m_angle * Mathf.Deg2Rad));
         //direction.Normalize();
         //transform.rotation = Quaternion.Euler(direction.x * m_AngleDist, direction.y * m_AngleDist, transform.rotation.z);
 
@@ -42,24 +42,9 @@ public class CameraManager : MonoBehaviour
 
 
 
-
-
-
-
-
-        
-
-        //colorAdjustment.colorFilter.value = m_color;
-
-
+        ////colorAdjustment.colorFilter.value = m_color;
     }
 
-
-
-    //private Volume volume;
-    // !private ColorAdjustments colorAdjustment;
-    // ?private ColorAdjustments colorAdjustment;
-    // private ColorAdjustments colorAdjustment;
 
 
     private IEnumerator HandelCameraRotation()

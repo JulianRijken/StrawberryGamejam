@@ -23,10 +23,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if(last.FatalObjstacle)
-        //{
+        // if(last.FatalObjstacle)
+        // {
         //    last.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.white;
-        //}
+        // }
+
+        
 
         // Update Collision Hit Result
         CollisionResult collisionResult = GetCollisionResult();

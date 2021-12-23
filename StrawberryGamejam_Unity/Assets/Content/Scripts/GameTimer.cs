@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameTimer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_SecondsText;
-    [SerializeField] private TextMeshProUGUI m_MilisecondsText;
+    [SerializeField] private TextMeshProUGUI m_MillisecondsText;
     private float m_Timer;
     private bool m_TimerTicking;
 
@@ -40,7 +40,7 @@ public class GameTimer : MonoBehaviour
 
             TimeSpan timerTimespan = TimeSpan.FromSeconds(m_Timer);
             m_SecondsText.text = timerTimespan.Seconds.ToString();
-            m_MilisecondsText.text = Mathf.Clamp(timerTimespan.Milliseconds / 10f, 0f, 99f).ToString("00");
+            m_MillisecondsText.text = Mathf.Clamp(timerTimespan.Milliseconds / 10f, 0f, 99f).ToString("00");
         }
     }
 
