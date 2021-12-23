@@ -330,7 +330,7 @@ MonoBehaviour:
   - 45
   - 75
   - 100
-  m_TransitonSpeedSet:
+  m_TransitionSpeedSet:
   - 0.5
   - 1
   - 3
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
-  m_Dithering: 1
+  m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0
@@ -557,11 +557,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527689364}
   m_CullTransparentMesh: 1
---- !u!4 &923794704 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8793022499031069316, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-  m_PrefabInstance: {fileID: 8793022500614223082}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047845188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,10 +2270,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1047845192}
     m_Modifications:
-    - target: {fileID: 2838855320109667609, guid: 5aa7000af29cc07488821bf15c18ead3, type: 3}
-      propertyPath: m_attachTransform
-      value: 
-      objectReference: {fileID: 923794704}
     - target: {fileID: 4619327543914498820, guid: 5aa7000af29cc07488821bf15c18ead3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

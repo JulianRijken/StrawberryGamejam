@@ -78,8 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SecondsText: {fileID: 4619327544684940109}
-  m_MilisecondsText: {fileID: 4619327543919340955}
-  m_attachTransform: {fileID: 0}
+  m_MillisecondsText: {fileID: 4619327543919340955}
 --- !u!1 &4619327543919340956
 GameObject:
   m_ObjectHideFlags: 0
