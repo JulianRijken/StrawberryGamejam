@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -32,6 +31,7 @@ public class GameManager : MonoBehaviour
         controls.Game.Restart.performed += RestartGame;
     }
 
+
     private void Update()
     {
         // Delete
@@ -50,10 +50,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnEnumerator()
     {
-        ObstacleGroup spawnGroup = m_TestGroup ? m_TestGroup : m_TestObstacles[Random.Range(0,m_TestObstacles.Length)];
 
         while (true)
         {
+            ObstacleGroup spawnGroup = m_TestGroup ? m_TestGroup : m_TestObstacles[Random.Range(0,m_TestObstacles.Length)];
+
             SpawnObstacleGroup(spawnGroup);
             
             // Temp

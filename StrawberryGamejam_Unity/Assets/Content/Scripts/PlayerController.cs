@@ -19,22 +19,24 @@ public class PlayerController : MonoBehaviour
     }
 
     // Remove
-    private CollisionResult last;
+    //private CollisionResult last;
 
     private void Update()
     {
-        if(last.FatalObjstacle)
-        {
-            last.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.white;
-        }
+        //if(last.FatalObjstacle)
+        //{
+        //    last.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        //}
 
         // Update Collision Hit Result
         CollisionResult collisionResult = GetCollisionResult();
-        last = collisionResult;
-        if (collisionResult.FatalObjstacle)
-        {
-            collisionResult.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.red;
-        }
+
+
+        //last = collisionResult;
+        //if (collisionResult.FatalObjstacle)
+        //{
+        //    collisionResult.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        //}
 
 
 
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
             if (collisionResult.FatalObjstacleDistance < 0f && Mathf.Abs(collisionResult.FatalObjstacleDistance) < obstacleMoveDelta)
             {
-                OnDeath();
+                OnDeath();             
             }
         }
     }
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviour
     private void OnDeath()
     {
         Debug.Log("Died");
+        m_PlayerSprite.color = Color.red;
         Time.timeScale = 0;
     }
 

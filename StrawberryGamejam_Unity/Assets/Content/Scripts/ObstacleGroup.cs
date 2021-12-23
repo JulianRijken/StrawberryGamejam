@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -23,15 +22,17 @@ public class ObstacleGroup : ScriptableObject
     [ListDrawerSettings(ShowItemCount = false, DraggableItems = false, OnBeginListElementGUI = "BeginDrawListElement", OnEndListElementGUI = "EndDrawListElement")]
     public ObstacleSpawnSettings[] SpawnObstacles;
 
+#if UNITY_EDITOR
     private void BeginDrawListElement(int index)
     {
-        SirenixEditorGUI.BeginInlineBox();
+        Sirenix.Utilities.Editor.SirenixEditorGUI.BeginInlineBox();
     }
 
     private void EndDrawListElement(int index)
     {
-        SirenixEditorGUI.EndInlineBox();
+        Sirenix.Utilities.Editor.SirenixEditorGUI.EndInlineBox();
     }
+#endif
 }
 
 
@@ -49,6 +50,24 @@ public struct ObstacleSpawnSettings
     [ShowIf("m_EditMode", EditModeType.Alpha)]
     [CustomValueDrawer("FillAlphaDrawer")]
     public float FillAlpha;
+
+
+    [ShowIf("m_EditMode", EditModeType.Angle)]
+    [CustomValueDrawer("FillAngleDrawer")]
+    [SerializeField]
+    private float FillAngle;
+
+    [ShowIf("m_EditMode", EditModeType.Alpha)]
+    [CustomValueDrawer("RotationDrawer")]
+    public float RotationAlpha;
+
+    [ShowIf("m_EditMode", EditModeType.Angle)]
+    [CustomValueDrawer("RotatioAngleDrawer")]
+    [SerializeField]
+    private float RotationAngle;
+
+#if UNITY_EDITOR
+
     private float FillAlphaDrawer(float value, GUIContent lable)
     {
         FillAngle = Mathf.Clamp(value * 360f, 0f, 360f);
@@ -56,11 +75,6 @@ public struct ObstacleSpawnSettings
     }
 
 
-
-    [ShowIf("m_EditMode", EditModeType.Angle)]
-    [CustomValueDrawer("FillAngleDrawer")]
-    [SerializeField]
-    private float FillAngle;
     private float FillAngleDrawer(float value, GUIContent lable)
     {
         FillAlpha = Mathf.Clamp01(value / 360f);
@@ -68,27 +82,19 @@ public struct ObstacleSpawnSettings
     }
 
 
-
-
-    [ShowIf("m_EditMode", EditModeType.Alpha)]
-    [CustomValueDrawer("RotationDrawer")]
-    public float RotationAlpha;
     private float RotationDrawer(float value, GUIContent lable)
     {
         RotationAngle = Mathf.Clamp(value * 360f, 0f, 360f);
         return EditorGUILayout.Slider(lable, value, 0f, 1f);
     }
 
-    [ShowIf("m_EditMode", EditModeType.Angle)]
-    [CustomValueDrawer("RotatioAngleDrawer")]
-    [SerializeField]
-    private float RotationAngle;
     private float RotatioAngleDrawer(float value, GUIContent lable)
     {
         RotationAlpha = Mathf.Clamp01(value / 360f);
         return EditorGUILayout.Slider(lable, value, 0f, 360f);
     }
 
+#endif
 
     public float EdgeSize;
 
@@ -98,14 +104,14 @@ public struct ObstacleSpawnSettings
     [ToggleGroup("Repeat")]
     public bool Repeat;
 
-    [Min(2)]
+    [Min(1)]
     [ToggleGroup("Repeat")]
     public int RepeatAroundTimes;
 
     [ToggleGroup("Repeat")]
     public float RepeatAroundOffset;
 
-    [Min(2)]
+    [Min(1)]
     [ToggleGroup("Repeat")]
     public int RepeatUpTimes;
 
