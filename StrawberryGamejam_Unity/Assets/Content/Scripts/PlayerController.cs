@@ -40,11 +40,8 @@ public class PlayerController : MonoBehaviour
 
 
 
-
         HandleRotation(collisionResult);
-
-        if(m_CanDie)
-            CheckDeath(collisionResult);
+        CheckDeath(collisionResult);
     }
 
 
@@ -84,6 +81,12 @@ public class PlayerController : MonoBehaviour
 
     private void CheckDeath(CollisionResult collisionResult)
     {
+
+#if UNITY_EDITOR
+        if (!m_CanDie)
+            return;
+#endif
+
         if (collisionResult.FatalObjstacle)
         {
             float obstacleMoveDelta = collisionResult.FatalObjstacle.MoveSpeed * Time.deltaTime / 2f;
