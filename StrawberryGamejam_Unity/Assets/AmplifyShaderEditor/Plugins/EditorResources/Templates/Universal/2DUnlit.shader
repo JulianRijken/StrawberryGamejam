@@ -25,6 +25,10 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 		Cull Off
 		HLSLINCLUDE
 		#pragma target 2.0
+		
+		#pragma prefer_hlslcc gles
+		#pragma exclude_renderers d3d11_9x
+
 		ENDHLSL
 
 		/*ase_pass*/
@@ -41,9 +45,7 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 			/*ase_stencil*/
 
 			HLSLPROGRAM
-			#pragma prefer_hlslcc gles
-			#pragma exclude_renderers d3d11_9x
-
+			
 			#pragma vertex vert
 			#pragma fragment frag
 
@@ -68,7 +70,7 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 				float4 tangent : TANGENT;
 				float4 uv0 : TEXCOORD0;
 				float4 color : COLOR;
-				/*ase_vdata:p=p;n=n;t=t;c=c;uv1=tc1.xyzw*/
+				/*ase_vdata:p=p;n=n;t=t;c=c;uv0=tc0*/
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -111,6 +113,7 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 					v.vertex.xyz += vertexValue;
 				#endif
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;4;-1;_VNormal*/v.normal/*end*/;
+				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;5;-1;_VTangent*/v.tangent.xyz/*end*/;
 
 				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.vertex.xyz );
 
@@ -142,6 +145,6 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 			ENDHLSL
 		}
 	}
-	CustomEditor "UnityEditor.ShaderGraph.PBRMasterGUI"
+	CustomEditor "ASEMaterialInspector"
 	FallBack "Hidden/InternalErrorShader"
 }

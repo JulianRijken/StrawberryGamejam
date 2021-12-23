@@ -6,7 +6,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private string m_EdgeSizeMProperty;
     [SerializeField] private string m_FillAlphaMProperty;
     [SerializeField] private string m_RotationAlphaMProperty;
-    private Material m_Matarial;
+    private Material m_Material;
 
     // Visual Circle
     [SerializeField] private GameObject m_HalfCircle;
@@ -21,7 +21,7 @@ public class Obstacle : MonoBehaviour
 
     private void Awake()
     {
-        m_Matarial = m_HalfCircle.GetComponent<SpriteRenderer>().material;
+        m_Material = m_HalfCircle.GetComponent<SpriteRenderer>().material;
     }
 
     private void Update()
@@ -43,9 +43,9 @@ public class Obstacle : MonoBehaviour
 
     private void UpdateMaterialProperties()
     {
-        m_Matarial.SetFloat(m_EdgeSizeMProperty, EdgeSize);
-        m_Matarial.SetFloat(m_FillAlphaMProperty, FillAlpha);
-        m_Matarial.SetFloat(m_RotationAlphaMProperty, RotationAlpha);
+        m_Material.SetFloat(m_EdgeSizeMProperty, EdgeSize);
+        m_Material.SetFloat(m_FillAlphaMProperty, FillAlpha);
+        m_Material.SetFloat(m_RotationAlphaMProperty, RotationAlpha);
     }
 
 }

@@ -29,12 +29,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EdgeWith: 0.245
+    - _AlphaCutoff: 0.5
+    - _EdgeWith: 0.2
     - _Float0: 2.23
     - _Float1: 3.47
     - _Float2: 128
     - _Float3: 2.82
     - _Float4: 0
     - _Float5: 0
-    m_Colors: []
+    m_Colors:
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

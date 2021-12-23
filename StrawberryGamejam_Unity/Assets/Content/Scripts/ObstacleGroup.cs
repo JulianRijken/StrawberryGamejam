@@ -62,36 +62,36 @@ public struct ObstacleSpawnSettings
     public float RotationAlpha;
 
     [ShowIf("m_EditMode", EditModeType.Angle)]
-    [CustomValueDrawer("RotatioAngleDrawer")]
+    [CustomValueDrawer("RotationAngleDrawer")]
     [SerializeField]
     private float RotationAngle;
 
 #if UNITY_EDITOR
 
-    private float FillAlphaDrawer(float value, GUIContent lable)
+    private float FillAlphaDrawer(float value, GUIContent label)
     {
         FillAngle = Mathf.Clamp(value * 360f, 0f, 360f);
-        return EditorGUILayout.Slider(lable, value, 0f, 1f);
+        return EditorGUILayout.Slider(label, value, 0f, 1f);
     }
 
 
-    private float FillAngleDrawer(float value, GUIContent lable)
+    private float FillAngleDrawer(float value, GUIContent label)
     {
         FillAlpha = Mathf.Clamp01(value / 360f);
-        return EditorGUILayout.Slider(lable, value, 0f, 360f);
+        return EditorGUILayout.Slider(label, value, 0f, 360f);
     }
 
 
-    private float RotationDrawer(float value, GUIContent lable)
+    private float RotationDrawer(float value, GUIContent label)
     {
         RotationAngle = Mathf.Clamp(value * 360f, 0f, 360f);
-        return EditorGUILayout.Slider(lable, value, 0f, 1f);
+        return EditorGUILayout.Slider(label, value, 0f, 1f);
     }
 
-    private float RotatioAngleDrawer(float value, GUIContent lable)
+    private float RotationAngleDrawer(float value, GUIContent label)
     {
         RotationAlpha = Mathf.Clamp01(value / 360f);
-        return EditorGUILayout.Slider(lable, value, 0f, 360f);
+        return EditorGUILayout.Slider(label, value, 0f, 360f);
     }
 
 #endif

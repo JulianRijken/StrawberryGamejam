@@ -1,9 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using Sirenix.OdinInspector;
 
 public class CameraManager : MonoBehaviour
 {
@@ -14,21 +10,20 @@ public class CameraManager : MonoBehaviour
     //[SerializeField] private Color[] m_ColorOptions;
     //private Color m_color;
 
-
+    
     [SerializeField] private float m_CameraDistance;
     [SerializeField] private float[] m_SpeedSet = new float[] { 25f, 50f, 100f };
-    [SerializeField] private float[] m_TransitonSpeedSet = new float[] { 0.5f, 1f, 3f };
+    [SerializeField] private float[] m_TransitionSpeedSet = new float[] { 0.5f, 1f, 3f };
 
     private float m_CameraRotatateSpeed;
-
 
 
     private void Start()
     {
         //volume = FindObjectOfType<Volume>();
-        //volume.profile.TryGet(out colorAjustment);
+        //volume.profile.TryGet(out colorAdjustment);
 
-        StartCoroutine(HandeCameraRotation());
+        StartCoroutine(HandelCameraRotation());
     }
 
     private void LateUpdate()
@@ -54,18 +49,20 @@ public class CameraManager : MonoBehaviour
 
         
 
-        //colorAjustment.colorFilter.value = m_color;
+        //colorAdjustment.colorFilter.value = m_color;
 
 
     }
 
+
+
     //private Volume volume;
-    //private ColorAdjustments colorAjustment;
+    // !private ColorAdjustments colorAdjustment;
+    // ?private ColorAdjustments colorAdjustment;
+    // private ColorAdjustments colorAdjustment;
 
 
-
-
-    private IEnumerator HandeCameraRotation()
+    private IEnumerator HandelCameraRotation()
     {
         while (true)
         {
@@ -73,8 +70,8 @@ public class CameraManager : MonoBehaviour
             float targetRotationSpeed = m_CameraRotatateSpeed > 0f ? -speedRange : speedRange;
             float oldRotationSpeed = m_CameraRotatateSpeed;
 
-            float transitionSpeed = m_TransitonSpeedSet[Random.Range(0, m_TransitonSpeedSet.Length)];
-            float timer = 0f;
+            float transitionSpeed = m_TransitionSpeedSet[Random.Range(0, m_TransitionSpeedSet.Length)];
+            float timer = 0f; 
 
             //Color oldColor = m_color;
             //Color targetColor = m_ColorOptions[Random.Range(0, m_ColorOptions.Length)];
