@@ -8,7 +8,6 @@ public class GameTimer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_SecondsText;
     [SerializeField] private TextMeshProUGUI m_MilisecondsText;
-    [SerializeField] private Transform m_attachTransform;
     private float m_Timer;
     private bool m_TimerTicking;
 
@@ -49,6 +48,6 @@ public class GameTimer : MonoBehaviour
     {
         Camera camera = Camera.main;
 
-        transform.position = camera.WorldToScreenPoint(m_attachTransform.position);
+        transform.position = camera.WorldToScreenPoint(Vector3.zero);
     }
 }
