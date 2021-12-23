@@ -140,6 +140,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""38559d64-53d7-4c9d-85af-96b4a24b8fc3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,17 +166,6 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""0ab6ee08-01d0-407e-a3be-501768c40764"",
                     ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Restart"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e86d93d9-1543-4473-abbe-93c4cbd0f189"",
-                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -219,6 +216,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Restart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21f452b2-60cc-483c-857a-cb05c53b567e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -231,6 +239,7 @@ public class @Controls : IInputActionCollection, IDisposable
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_Restart = m_Game.FindAction("Restart", throwIfNotFound: true);
+        m_Game_Quit = m_Game.FindAction("Quit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -314,11 +323,13 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Game;
     private IGameActions m_GameActionsCallbackInterface;
     private readonly InputAction m_Game_Restart;
+    private readonly InputAction m_Game_Quit;
     public struct GameActions
     {
         private @Controls m_Wrapper;
         public GameActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Restart => m_Wrapper.m_Game_Restart;
+        public InputAction @Quit => m_Wrapper.m_Game_Quit;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -331,6 +342,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Restart.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRestart;
                 @Restart.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRestart;
                 @Restart.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRestart;
+                @Quit.started -= m_Wrapper.m_GameActionsCallbackInterface.OnQuit;
+                @Quit.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnQuit;
+                @Quit.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnQuit;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -338,6 +352,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Restart.started += instance.OnRestart;
                 @Restart.performed += instance.OnRestart;
                 @Restart.canceled += instance.OnRestart;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
             }
         }
     }
@@ -349,5 +366,6 @@ public class @Controls : IInputActionCollection, IDisposable
     public interface IGameActions
     {
         void OnRestart(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
     }
 }

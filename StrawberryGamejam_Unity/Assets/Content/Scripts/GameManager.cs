@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = m_targetFPS;
+        Cursor.visible = false;
     }
 
     private void Start()
@@ -29,7 +30,9 @@ public class GameManager : MonoBehaviour
         Controls controls = new Controls();
         controls.Enable();
         controls.Game.Restart.performed += RestartGame;
+        controls.Game.Quit.performed += QuitGame;
     }
+
 
 
     private void Update()
@@ -38,6 +41,16 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = m_targetFPS;
     }
 
+    private void QuitGame(InputAction.CallbackContext obj)
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_WEBPLAYER
+         Application.OpenURL(webplayerQuitURL);
+#else
+         Application.Quit();
+#endif
+    }
 
     private void RestartGame(InputAction.CallbackContext obj)
     {
