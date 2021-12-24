@@ -39,7 +39,7 @@ public class GameTimer : MonoBehaviour
             m_Timer += Time.deltaTime;
 
             TimeSpan timerTimespan = TimeSpan.FromSeconds(m_Timer);
-            m_SecondsText.text = timerTimespan.Seconds.ToString();
+            m_SecondsText.text = Mathf.RoundToInt(m_Timer).ToString();
             m_MillisecondsText.text = Mathf.Clamp(timerTimespan.Milliseconds / 10f, 0f, 99f).ToString("00");
         }
     }

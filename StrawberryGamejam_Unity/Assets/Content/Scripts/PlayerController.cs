@@ -52,7 +52,8 @@ public class PlayerController : MonoBehaviour
     {
 
         float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
-        float rotateInputDelta = m_RotateSpeed * Time.deltaTime * rotateInput;
+        float rotateDelta = m_RotateSpeed * Time.deltaTime * rotateInput;
+
 
         float rotateEdgeDelta = collisionResult.EdgeObstacleSide * collisionResult.EdgeObstacleAngle;
 
@@ -61,15 +62,16 @@ public class PlayerController : MonoBehaviour
         if (collisionResult.EdgeObstacle && rotateInput != 0)
         {
             if (collisionResult.EdgeObstacleSide > 0)
-                rotateInputDelta = Mathf.Min(rotateEdgeDelta, rotateInputDelta);
+                rotateDelta = Mathf.Min(rotateEdgeDelta, rotateDelta);
             else
-                rotateInputDelta = Mathf.Max(rotateEdgeDelta, rotateInputDelta);
+                rotateDelta = Mathf.Max(rotateEdgeDelta, rotateDelta);
         }
 
-        transform.Rotate(Vector3.forward, rotateInputDelta);
+
+        transform.Rotate(Vector3.forward, rotateDelta);
 
 
-        float sway = rotateInputDelta == 0f ? 0f : rotateInputDelta > 0f ? 1f : -1f;
+        float sway = rotateDelta == 0f ? 0f : rotateDelta > 0f ? 1f : -1f;
 
         if (m_PlayerSprite)
         {
