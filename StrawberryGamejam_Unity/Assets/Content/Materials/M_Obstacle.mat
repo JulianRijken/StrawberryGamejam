@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CenterCircleMaterial
-  m_Shader: {fileID: 4800000, guid: 0447fa6460442ea42969a1704025d4ab, type: 3}
+  m_Name: M_Obstacle
+  m_Shader: {fileID: 4800000, guid: 5ae56303266229d4c8ca6300c07d1d8c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -23,6 +23,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TestGraidiant:
+        m_Texture: {fileID: 2800000, guid: 7581ca41d49a8c748a9da0c3c5d0c082, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -30,13 +34,22 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _EdgeWith: 0.2
-    - _Float0: 2.23
-    - _Float1: 3.47
-    - _Float2: 128
-    - _Float3: 2.82
-    - _Float4: 0
-    - _Float5: 0
+    - _EdgeAlphaOffset: 0
+    - _EdgeSize: 1
+    - _Edgewith: 1
+    - _FillAlpha: 0.294
+    - _FillAmmount: 1
+    - _FillAngle: 145
+    - _Float1: 1.27
+    - _Float2: 1
+    - _Float3: 0.99
+    - _Float4: 1.04
+    - _NewEdge: 5
+    - _Rotation: 0
+    - _RotationAlpha: 0
+    - _RotationAngle: 354.31
+    - __dirty: 0
+    - _ttt: 6.44
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

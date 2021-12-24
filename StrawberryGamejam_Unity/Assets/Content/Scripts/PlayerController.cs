@@ -6,11 +6,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_RotateSpeed;
     [SerializeField] private float m_RotateSwayDistance;
     [SerializeField] private float m_RotateSwayDampSpeed;
-    [SerializeField] private GameObject m_PlayerPointer;
+    [SerializeField] private Transform m_PlayerPointer;
     [SerializeField] private SpriteRenderer m_PlayerSprite;
-    [SerializeField] private bool m_CanDie;
+
+#if UNITY_EDITOR
+    [SerializeField] 
+    private bool m_CanDie;
+#endif
+
+
+    [SerializeField] 
+    private float m_PlayerDistance;
+    [SerializeField]
+    private float m_InnerCircleSize;
+
 
     private Controls m_Controls;
+
+
+
 
     private void Start()
     {
@@ -18,29 +32,11 @@ public class PlayerController : MonoBehaviour
         m_Controls.Enable();
     }
 
-    // Remove
-    //private CollisionResult last;
 
     private void Update()
-    {
-        // if(last.FatalObjstacle)
-        // {
-        //    last.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.white;
-        // }
-
-        
-
+    {    
         // Update Collision Hit Result
         CollisionResult collisionResult = GetCollisionResult();
-
-
-        //last = collisionResult;
-        //if (collisionResult.FatalObjstacle)
-        //{
-        //    collisionResult.FatalObjstacle.GetComponentInChildren<SpriteRenderer>().color = Color.red;
-        //}
-
-
 
         HandleRotation(collisionResult);
         CheckDeath(collisionResult);
@@ -122,20 +118,20 @@ public class PlayerController : MonoBehaviour
 
             // Check if player is inside of ring
             float outerEdgePoint = obstacle.Distance / 2f;
-            float innerEdgePoint = Mathf.Max(0f, outerEdgePoint - (obstacle.EdgeSize / 2f));
-            float playerPoint = m_PlayerPointer.transform.localPosition.y;
+            float innerEdgePoint = Mathf.Max(0f, outerEdgePoint - (obstacle.EdgeWith / 2f));
+            float playerPoint = m_PlayerPointer.localPosition.y;
 
             float outerEdgeDistanceToPlayerPoint = playerPoint - outerEdgePoint;
             float innerEdgeDistanceToPlayerPoint = playerPoint - innerEdgePoint;
 
             bool bInsideRing = innerEdgeDistanceToPlayerPoint > 0 && outerEdgeDistanceToPlayerPoint < 0;
 
-            float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.RotationAlpha * 360f) / 180f);
-            float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.RotationAlpha * 360f);
+            float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.Rotation * 360f) / 180f);
+            float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.Rotation * 360f);
 
 
-            float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (obstacle.FillAlpha * 180f));
-            bool bInsideAngle = dotAwayFromPlayer < obstacle.FillAlpha;
+            float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (obstacle.FillAngle * 180f));
+            bool bInsideAngle = dotAwayFromPlayer < obstacle.FillAngle;
             int side = angleFromCenter > 0 ? 1 : -1;
 
 
@@ -179,6 +175,22 @@ public class PlayerController : MonoBehaviour
         public float EdgeObstacleAngle;
         public int EdgeObstacleSide;
     }
+
+
+
+
+
+
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        if (m_PlayerPointer)
+            m_PlayerPointer.position = transform.position + (Vector3.up * m_PlayerDistance);
+        else
+            Debug.LogWarning("Player Pointer Not Set");
+    }
+#endif
 
 }
 

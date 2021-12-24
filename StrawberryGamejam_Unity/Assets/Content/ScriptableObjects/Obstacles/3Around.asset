@@ -14,27 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroupSize: 30
   SpawnObstacles:
-  - FillAlpha: 0.16666667
-    FillAngle: 60
-    RotationAlpha: 0
+  - FillAngle: 181
     RotationAngle: 0
-    EdgeSize: 5
+    EdgeWith: 0
     DistanceOffset: 0
     Repeat: 1
     RepeatAroundTimes: 3
-    RepeatAroundOffset: 0.33333334
+    RepeatAroundOffsetAngle: 0
     RepeatUpTimes: 2
     RepeatUpOffset: 10
-    RepeatUpAroundOffset: 0
-  - FillAlpha: 0.16666667
-    FillAngle: 60
-    RotationAlpha: 0.16666667
+    RepeatUpAroundOffsetAngle: 0
+  - FillAngle: 60
     RotationAngle: 60
-    EdgeSize: 5
+    EdgeWith: 0
     DistanceOffset: 40
     Repeat: 1
     RepeatAroundTimes: 3
-    RepeatAroundOffset: 0.33333334
+    RepeatAroundOffsetAngle: 0
     RepeatUpTimes: 2
     RepeatUpOffset: 10
-    RepeatUpAroundOffset: 0
+    RepeatUpAroundOffsetAngle: 0
