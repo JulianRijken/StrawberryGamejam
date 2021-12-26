@@ -1,0 +1,20 @@
+{
+  "GroupSize": 100000.0,
+  "SpawnObstacles": [
+    {
+      "FillAngle": 262.0,
+      "Rotation": 122.0,
+      "EdgeWith": 5.0,
+      "DistanceOffset": 0.0,
+      "Scale": false,
+      "Repeat": true,
+      "RepeatAroundTimes": 1,
+      "RepeatAroundRotationOffset": 0.0,
+      "RepeatUpTimes": 2,
+      "RepeatUpDistanceOffset": 40.0,
+      "RepeatUpAroundRotationOffset": 180.0
+    }
+  ],
+  "name": "TestGroup",
+  "hideFlags": 0
+}

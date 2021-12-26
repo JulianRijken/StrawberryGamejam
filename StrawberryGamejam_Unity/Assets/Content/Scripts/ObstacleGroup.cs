@@ -3,9 +3,27 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ObstacleGroup", menuName = "ScriptableObjects/ObstacleGroup", order = 1)]
+[Serializable]
 public class ObstacleGroup : ScriptableObject
 {
+    // To add
+    // Shrinking & Growing
+    // Randomizing
 
+    [FoldoutGroup("Settings")]
+    [ShowInInspector]
+    private string ObstacleName
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+
+    }
 
     [ShowInInspector]
     [EnumToggleButtons]
@@ -51,6 +69,10 @@ public struct ObstacleSpawnSettings
 
     public float EdgeWith;
     public float DistanceOffset;
+
+    [ToggleGroup("Scale")]
+    public bool Scale;
+
 
 
     #region RepeteSettings

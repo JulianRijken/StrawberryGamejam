@@ -22,8 +22,6 @@ public class Obstacle : MonoBehaviour
     }
 
 
-
-
     private float m_Distance;
     private float m_EdgeWith;
     private float m_FillAngle;
@@ -37,7 +35,7 @@ public class Obstacle : MonoBehaviour
         get { return m_Distance; }
         set
         {
-            transform.localScale = Vector3.one * value;
+            transform.localScale = Vector3.one * Mathf.Max(0f,value);
             m_Distance = value;
         }
     }
@@ -70,29 +68,19 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    //private void OnEnable()
+    //{
+    //    // Reset all values on enable
+    //    MoveSpeed = 0f;
+    //    Distance = 0f;
+    //    EdgeWith = 0f;
+    //    FillAngle = 0f;
+    //    Rotation = 0f;
+    //}
 
     private void Awake()
     {
         m_Material = GetComponent<SpriteRenderer>().material;
-    }
-
-    private void Update()
-    {
-        UpdateObstaclePosition();
-    }
-
-
-    private void UpdateObstaclePosition()
-    {
-        // Move obstacle every frame
-        Distance += Time.deltaTime * -MoveSpeed;
-
-        // Destroy when under 0
-        if (Distance <= 0)
-        {
-            Destroy(gameObject);
-            return;
-        }
     }
 }
 

@@ -1,38 +1,62 @@
+using Newtonsoft.Json;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
+
 
 public class ObstacleManager : MonoBehaviour
 {
-
     [SerializeField] private Obstacle m_ObstaclePrefab;
-
+    [SerializeField] private int m_DefaultAmmountToPool;
 
     [SerializeField] private float m_SpawnDistance = 100f;
     [SerializeField] private float m_SpawnSpeed = 50f;
+    [SerializeField] private float Rate = 1f;
+    [SerializeField] private bool Upfdate;
+
+
+    private List<Obstacle> m_ActiveObstacles = new List<Obstacle>();
+    private List<Obstacle> m_InactiveObstacles = new List<Obstacle>();
+
 
     //[SerializeField] private ObstacleGroup[] m_TestObstacles;
     [SerializeField] private ObstacleGroup m_TestGroup;
 
+
+    private void Awake()
+    {
+        //AddStandardPoolObjects();
+    }
+
     private void Start()
     {
-        SpawnObstacleGroup(m_TestGroup);
+        
+      
 
-        //StartCoroutine(SpawnEnumerator());
     }
 
-
-    private IEnumerator SpawnEnumerator()
+    private void Update()
     {
-        while (true)
+        if (Upfdate)
         {
-            //ObstacleGroup spawnGroup = m_TestGroup ? m_TestGroup : m_TestObstacles[Random.Range(0, m_TestObstacles.Length)];
-
-            //SpawnObstacleGroup(spawnGroup);
-
-            // Temp
-            //yield return new WaitForSeconds((spawnGroup.GroupSize + m_GroupSpace) / m_SpawnSpeed);
+            HideAllObstacles();
+            SpawnObstacleGroup(m_TestGroup);
         }
+
+        //UpdateObstacles();
     }
+
+    //private IEnumerator Testing()
+    //{
+    //    while (true)
+    //    {
+    //        SpawnObstacleGroup(m_TestGroup);
+    //        yield return new WaitForSeconds(Rate);
+    //    }
+    //}
+
 
 
     private void SpawnObstacleGroup(ObstacleGroup obstacleGroup)
@@ -44,9 +68,8 @@ public class ObstacleManager : MonoBehaviour
             {
                 for (int RepeatAroundIndex = 0; RepeatAroundIndex < (s.Repeat ? Mathf.Max(1, s.RepeatAroundTimes) : 1); RepeatAroundIndex++)
                 {
-
                     // Spawn Obstacle \\
-                    Obstacle obstacle = Instantiate(m_ObstaclePrefab);
+                    Obstacle obstacle = GetNewObstacle();
 
                     obstacle.MoveSpeed = m_SpawnSpeed;
                     obstacle.Distance = m_SpawnDistance + s.DistanceOffset + (RepeatUpIndex * s.RepeatUpDistanceOffset);
@@ -55,13 +78,174 @@ public class ObstacleManager : MonoBehaviour
                     obstacle.Rotation = s.Rotation + (RepeatAroundIndex * s.RepeatAroundRotationOffset) + (RepeatUpIndex * s.RepeatUpAroundRotationOffset);
                 }
             }
-
         }
     }
+
+    private void UpdateObstacles()
+    {
+        foreach(Obstacle obstacle in m_ActiveObstacles)
+        { 
+            // Move obstacle every frame
+            obstacle.Distance += Time.deltaTime * -obstacle.MoveSpeed;
+
+            // Destroy when under 0
+            if (obstacle.Distance <= 0)
+            {
+                HideObstacle(obstacle);
+                return;
+            }
+        }
+    }
+
+
+
+
+    #region FileSaving
+
+    private void SaveObstacleGroup()
+    {
+        string groupJson = JsonConvert.SerializeObject(m_TestGroup, Formatting.Indented);
+        File.WriteAllText($"{Application.dataPath}/{m_TestGroup.name}.json", groupJson);
+
+        AssetDatabase.Refresh();
+        Debug.Log(Application.dataPath);
+    }
+
+    #endregion
+
+
+    #region ObstaclePool
+
+    private void AddStandardPoolObjects()
+    {
+        for (int i = 0; i < m_DefaultAmmountToPool; i++)
+        {
+            Obstacle newObstacle = GetNewObstacle();
+            newObstacle.gameObject.SetActive(false);
+        }
+    }
+
+
+    public Obstacle GetNewObstacle()
+    {
+        return GetNewObstacle(Vector3.zero, Quaternion.identity);
+    }
+
+    public Obstacle GetNewObstacle(Vector3 position, Quaternion rotation)
+    {
+        Obstacle spawnedObject;
+
+        // If the inactive list has more then 0, grab the object from the inactiveList
+        if (m_InactiveObstacles.Count > 0)
+        {
+            spawnedObject = m_InactiveObstacles[0];
+
+            m_InactiveObstacles.Remove(spawnedObject);
+            m_ActiveObstacles.Add(spawnedObject);
+
+            spawnedObject.transform.position = position;
+            spawnedObject.transform.rotation = rotation;
+        }
+        else
+        {
+            spawnedObject = Instantiate(m_ObstaclePrefab, position, rotation, transform);
+            m_ActiveObstacles.Add(spawnedObject);
+        }
+
+        spawnedObject.gameObject.SetActive(true);
+
+        return spawnedObject;
+    }
+
+
+    public void HideObstacle(Obstacle obstacle)
+    {
+        Debug.Log(m_ActiveObstacles.Remove(obstacle));
+        m_InactiveObstacles.Add(obstacle);
+
+        obstacle.gameObject.SetActive(false);
+    }
+
+    public void HideAllObstacles()
+    {
+        Obstacle[] obstaclesToHide = m_ActiveObstacles.ToArray();
+        for (int i = 0; i < obstaclesToHide.Length; i++)
+        {
+            HideObstacle(obstaclesToHide[i]);
+        }
+    }
+
+    #endregion
+
 }
 
 
 
+
+
+
+
+
+
+
+// OLD 1 \\
+
+
+//private IEnumerator SpawnEnumerator()
+//{
+//    while (true)
+//    {
+//ObstacleGroup spawnGroup = m_TestGroup ? m_TestGroup : m_TestObstacles[Random.Range(0, m_TestObstacles.Length)];
+
+//SpawnObstacleGroup(spawnGroup);
+
+//yield return new WaitForSeconds((spawnGroup.GroupSize + m_GroupSpace) / m_SpawnSpeed);
+//}
+//}
+
+
+
+
+
+//private void SpawnObstacleGroup(ObstacleGroup obstacleGroup)
+//{
+//    // Spawn Obstacle \\
+//    foreach (ObstacleSpawnSettings s in obstacleGroup.SpawnObstacles)
+//    {
+//        for (int RepeatUpIndex = 0; RepeatUpIndex < (s.Repeat ? Mathf.Max(1, s.RepeatUpTimes) : 1); RepeatUpIndex++)
+//        {
+//            for (int RepeatAroundIndex = 0; RepeatAroundIndex < (s.Repeat ? Mathf.Max(1, s.RepeatAroundTimes) : 1); RepeatAroundIndex++)
+//            {
+
+//                // Spawn Obstacle \\
+//                Obstacle obstacle = Instantiate(m_ObstaclePrefab);
+
+//                obstacle.MoveSpeed = m_SpawnSpeed;
+//                obstacle.Distance = m_SpawnDistance + s.DistanceOffset + (RepeatUpIndex * s.RepeatUpDistanceOffset);
+//                obstacle.EdgeWith = s.EdgeWith;
+//                obstacle.FillAngle = s.FillAngle;
+//                obstacle.Rotation = s.Rotation + (RepeatAroundIndex * s.RepeatAroundRotationOffset) + (RepeatUpIndex * s.RepeatUpAroundRotationOffset);
+//            }
+//        }
+
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// OLD 2 \\
 
 
 //private Obstacle m_LastSpawnedObstacle;
