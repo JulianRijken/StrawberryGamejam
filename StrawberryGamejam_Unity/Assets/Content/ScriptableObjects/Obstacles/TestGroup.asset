@@ -16,12 +16,13 @@ MonoBehaviour:
   SpawnObstacles:
   - FillAngle: 27
     Rotation: 0
-    EdgeWith: 1.4
+    EdgeWith: 5
     DistanceOffset: 0
+    MoveSpeedMultiplier: 1
     Scale: 0
-    Repeat: 1
+    Repeat: 0
     RepeatAroundTimes: 3
     RepeatAroundRotationOffset: 243.36
-    RepeatUpTimes: 110
+    RepeatUpTimes: 50
     RepeatUpDistanceOffset: 5.66
     RepeatUpAroundRotationOffset: 7

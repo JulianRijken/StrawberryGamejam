@@ -246,11 +246,11 @@ MonoBehaviour:
   m_RotateSpeed: 500
   m_RotateSwayDistance: 40
   m_RotateSwayDampSpeed: 20
-  m_PlayerPointer: {fileID: 8793022498703710352}
-  m_PlayerSprite: {fileID: 2347951307306589557}
-  m_CanDie: 0
   m_PlayerDistance: 6
-  m_InnerCircleSize: 0
+  m_PointerTransform: {fileID: 8793022498703710352}
+  m_PlayerSprite: {fileID: 2347951307306589557}
+  m_ObstacleManager: {fileID: 0}
+  m_CanDie: 0
 --- !u!212 &3898725105919272616
 SpriteRenderer:
   m_ObjectHideFlags: 0

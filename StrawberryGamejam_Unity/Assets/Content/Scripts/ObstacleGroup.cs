@@ -70,6 +70,8 @@ public struct ObstacleSpawnSettings
     public float EdgeWith;
     public float DistanceOffset;
 
+    public float MoveSpeedMultiplier;
+
     [ToggleGroup("Scale")]
     public bool Scale;
 

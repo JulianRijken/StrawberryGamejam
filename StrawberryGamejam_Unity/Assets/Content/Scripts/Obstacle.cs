@@ -10,18 +10,6 @@ public class Obstacle : MonoBehaviour
 
 
     private Material m_Material;
-    public Material Material
-    {
-        get
-        {
-            if(!m_Material)
-                m_Material = GetComponent<SpriteRenderer>().material;
-
-            return m_Material;
-        }
-    }
-
-
     private float m_Distance;
     private float m_EdgeWith;
     private float m_FillAngle;
@@ -29,13 +17,14 @@ public class Obstacle : MonoBehaviour
 
 
     // Obstacle Properties 
-    public float MoveSpeed;
+    [HideInInspector]
+    public float MoveSpeedMultiplier;
     public float Distance
     {
         get { return m_Distance; }
         set
         {
-            transform.localScale = Vector3.one * Mathf.Max(0f,value);
+            transform.localScale = Vector3.one * Mathf.Max(0f, value) * 2f;
             m_Distance = value;
         }
     }
@@ -45,7 +34,7 @@ public class Obstacle : MonoBehaviour
 
         set 
         {
-            Material.SetFloat(m_EdgeWith_MProperty, value);
+            m_Material.SetFloat(m_EdgeWith_MProperty, value);
             m_EdgeWith = value;
         }
     }
@@ -54,7 +43,7 @@ public class Obstacle : MonoBehaviour
         get { return m_FillAngle; }
         set
         {
-            Material.SetFloat(m_FillAngle_MProperty, value);
+            m_Material.SetFloat(m_FillAngle_MProperty, value);
             m_FillAngle = value;
         }
     }
@@ -63,20 +52,11 @@ public class Obstacle : MonoBehaviour
         get { return m_Rotation; }
         set
         {
-            Material.SetFloat(m_Rotation_MProperty, value);
+            m_Material.SetFloat(m_Rotation_MProperty, value);
             m_Rotation = value;
         }
     }
 
-    //private void OnEnable()
-    //{
-    //    // Reset all values on enable
-    //    MoveSpeed = 0f;
-    //    Distance = 0f;
-    //    EdgeWith = 0f;
-    //    FillAngle = 0f;
-    //    Rotation = 0f;
-    //}
 
     private void Awake()
     {

@@ -36,10 +36,12 @@ Material:
     - _AlphaCutoff: 0.5
     - _EdgeAlphaOffset: 0
     - _EdgeSize: 1
+    - _EdgeWith: 1.89
     - _Edgewith: 1
-    - _FillAlpha: 0.294
+    - _ExtraEdgeWith: 0
+    - _FillAlpha: 0.125
     - _FillAmmount: 1
-    - _FillAngle: 145
+    - _FillAngle: 178
     - _Float1: 1.27
     - _Float2: 1
     - _Float3: 0.99

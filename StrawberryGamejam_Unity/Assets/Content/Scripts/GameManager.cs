@@ -6,16 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    private int m_targetFPS = 300;
 
     [ShowInInspector]
     public int TargetFPS
     {
-        get { return m_targetFPS; }
+        get 
+        { 
+            return Application.targetFrameRate;
+        }
         set
         {
             Application.targetFrameRate = value;
-            m_targetFPS = value;
         }
     }
 

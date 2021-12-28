@@ -12,14 +12,14 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] private int m_DefaultAmmountToPool;
 
     [SerializeField] private float m_SpawnDistance = 100f;
-    [SerializeField] private float m_SpawnSpeed = 50f;
+    [SerializeField] private float m_GlobalMoveSpeed = 50f;
     [SerializeField] private float Rate = 1f;
-    [SerializeField] private bool Upfdate;
+
+    public float GlobalMoveSpeed => m_GlobalMoveSpeed;
 
 
-    private List<Obstacle> m_ActiveObstacles = new List<Obstacle>();
-    private List<Obstacle> m_InactiveObstacles = new List<Obstacle>();
-
+    public List<Obstacle> ActiveObstacles { get; private set; }
+    public List<Obstacle> InactiveObstacles { get; private set; }
 
     //[SerializeField] private ObstacleGroup[] m_TestObstacles;
     [SerializeField] private ObstacleGroup m_TestGroup;
@@ -27,25 +27,18 @@ public class ObstacleManager : MonoBehaviour
 
     private void Awake()
     {
-        //AddStandardPoolObjects();
+        ActiveObstacles = new List<Obstacle>();
+        InactiveObstacles = new List<Obstacle>();
+
+        AddStandardPoolObjects();
+        SpawnObstacleGroup(m_TestGroup);
     }
 
-    private void Start()
-    {
-        
-      
-
-    }
 
     private void Update()
     {
-        if (Upfdate)
-        {
-            HideAllObstacles();
-            SpawnObstacleGroup(m_TestGroup);
-        }
 
-        //UpdateObstacles();
+        UpdateObstacles();
     }
 
     //private IEnumerator Testing()
@@ -70,8 +63,7 @@ public class ObstacleManager : MonoBehaviour
                 {
                     // Spawn Obstacle \\
                     Obstacle obstacle = GetNewObstacle();
-
-                    obstacle.MoveSpeed = m_SpawnSpeed;
+                    obstacle.MoveSpeedMultiplier = 1f; //s.MoveSpeedMultiplier;
                     obstacle.Distance = m_SpawnDistance + s.DistanceOffset + (RepeatUpIndex * s.RepeatUpDistanceOffset);
                     obstacle.EdgeWith = s.EdgeWith;
                     obstacle.FillAngle = s.FillAngle;
@@ -83,18 +75,18 @@ public class ObstacleManager : MonoBehaviour
 
     private void UpdateObstacles()
     {
-        foreach(Obstacle obstacle in m_ActiveObstacles)
-        { 
+        for (int i = 0; i < ActiveObstacles.Count; i++)
+        {
             // Move obstacle every frame
-            obstacle.Distance += Time.deltaTime * -obstacle.MoveSpeed;
+            ActiveObstacles[i].Distance += -m_GlobalMoveSpeed * ActiveObstacles[i].MoveSpeedMultiplier * Time.deltaTime;
 
             // Destroy when under 0
-            if (obstacle.Distance <= 0)
+            if (ActiveObstacles[i].Distance <= 0)
             {
-                HideObstacle(obstacle);
+                HideObstacle(ActiveObstacles[i]);
                 return;
             }
-        }
+        }    
     }
 
 
@@ -136,12 +128,12 @@ public class ObstacleManager : MonoBehaviour
         Obstacle spawnedObject;
 
         // If the inactive list has more then 0, grab the object from the inactiveList
-        if (m_InactiveObstacles.Count > 0)
+        if (InactiveObstacles.Count > 0)
         {
-            spawnedObject = m_InactiveObstacles[0];
+            spawnedObject = InactiveObstacles[0];
 
-            m_InactiveObstacles.Remove(spawnedObject);
-            m_ActiveObstacles.Add(spawnedObject);
+            InactiveObstacles.Remove(spawnedObject);
+            ActiveObstacles.Add(spawnedObject);
 
             spawnedObject.transform.position = position;
             spawnedObject.transform.rotation = rotation;
@@ -149,7 +141,7 @@ public class ObstacleManager : MonoBehaviour
         else
         {
             spawnedObject = Instantiate(m_ObstaclePrefab, position, rotation, transform);
-            m_ActiveObstacles.Add(spawnedObject);
+            ActiveObstacles.Add(spawnedObject);
         }
 
         spawnedObject.gameObject.SetActive(true);
@@ -160,15 +152,14 @@ public class ObstacleManager : MonoBehaviour
 
     public void HideObstacle(Obstacle obstacle)
     {
-        Debug.Log(m_ActiveObstacles.Remove(obstacle));
-        m_InactiveObstacles.Add(obstacle);
-
+        ActiveObstacles.Remove(obstacle);
+        InactiveObstacles.Add(obstacle);
         obstacle.gameObject.SetActive(false);
     }
 
-    public void HideAllObstacles()
+    public void HideAllActiveObstacles()
     {
-        Obstacle[] obstaclesToHide = m_ActiveObstacles.ToArray();
+        Obstacle[] obstaclesToHide = ActiveObstacles.ToArray();
         for (int i = 0; i < obstaclesToHide.Length; i++)
         {
             HideObstacle(obstaclesToHide[i]);
