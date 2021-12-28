@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-
     [ShowInInspector]
     public int TargetFPS
     {
@@ -19,7 +18,6 @@ public class GameManager : MonoBehaviour
             Application.targetFrameRate = value;
         }
     }
-
 
     private void Awake()
     {

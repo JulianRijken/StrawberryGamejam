@@ -2251,20 +2251,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2347951307306589557, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_Color.b
-      value: 0.4669811
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2347951307306589557, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_Color.g
-      value: 0.4669811
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2347951307306589557, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8793022498703710365, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 8793022499031069316, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_RootOrder
       value: 5

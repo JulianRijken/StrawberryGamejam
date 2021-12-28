@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private Obstacle m_InevitableFatalObstacle;
 
 
-
 #if UNITY_EDITOR
     [SerializeField] 
     private bool m_CanDie;
@@ -31,7 +30,6 @@ public class PlayerController : MonoBehaviour
     {
         m_Controls = new Controls();
         m_Controls.Enable();
-        Debug.Log("ff");
     }
 
 
@@ -43,21 +41,22 @@ public class PlayerController : MonoBehaviour
         CheckDeath(result);
 
 
+        //// DEBUG
+        //Obstacle[] obstacles = m_ObstacleManager.ActiveObstacles.ToArray();
 
-        // DEBUG
-        Obstacle[] obstacles = m_ObstacleManager.ActiveObstacles.ToArray();
-
-        // Reset 
-        for (int i = 0; i < obstacles.Length; i++)        
-            obstacles[i].GetComponent<SpriteRenderer>().color = Color.white;
+        //// Reset 
+        //for (int i = 0; i < obstacles.Length; i++)        
+        //    obstacles[i].GetComponent<SpriteRenderer>().color = Color.white;
         
 
-        if (result.FatalObjstacle)
-            result.FatalObjstacle.GetComponent<SpriteRenderer>().color = Color.red;
+        //if (result.FatalObjstacle)
+        //    result.FatalObjstacle.GetComponent<SpriteRenderer>().color = Color.red;
 
-        if (result.EdgeObstacle)
-            result.EdgeObstacle.GetComponent<SpriteRenderer>().color = Color.green;
+        //if (result.EdgeObstacle)
+        //    result.EdgeObstacle.GetComponent<SpriteRenderer>().color = Color.green;
     }
+
+
 
     private void HandlePlayerRotation(CollisionResult result)
     {
@@ -75,9 +74,15 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.forward, rotateDelta);
     }
 
-
     private void CheckDeath(CollisionResult result)
     {
+
+
+#if UNITY_EDITOR
+        if (!m_CanDie)
+            return;
+#endif
+
         // Cancel if the player is already dead
         if (m_Death)
             return;
@@ -91,11 +96,15 @@ public class PlayerController : MonoBehaviour
 
             if (bInsideObstacleFill)
             {
+                float offsetDelta = m_InevitableFatalObstacle.Distance - m_InevitableFatalObstacle.EdgeWith - m_PlayerDistance;
+                m_ObstacleManager.MoveObstacles(Mathf.Max(0f,-offsetDelta));
+
                 OnDeath(m_InevitableFatalObstacle);
                 return;
             }
             else
             {
+                Debug.Log("Death Escaped");
                 m_InevitableFatalObstacle = null;
             }
         }
@@ -112,6 +121,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void OnDeath(Obstacle _instigator)
+    {
+        m_Death = true;
+        Time.timeScale = 0;
+    }
 
 
     private CollisionResult GetCollisionResult()
@@ -169,13 +184,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnDeath(Obstacle _instigator)
-    {
-        m_Death = true;
-        Debug.Log("PlayerDied");
-        Time.timeScale = 0;
-    }
-
     public struct CollisionResult
     {
         public Obstacle FatalObjstacle;
@@ -185,17 +193,6 @@ public class PlayerController : MonoBehaviour
         public float EdgeObstacle_AngleDelta;
         public float EdgeObstacle_EdgeDistance;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -211,280 +208,3 @@ public class PlayerController : MonoBehaviour
 #endif
 
 }
-
-
-
-
-
-
-
-//    private void HandleRotation(CollisionResult collisionResult)
-//    {
-
-//        float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
-//        float rotateDelta = m_RotateSpeed * Time.deltaTime * rotateInput;
-
-
-//        float rotateEdgeDelta = collisionResult.EdgeObstacleSide * collisionResult.EdgeObstacleAngle;
-
-
-//        //Clamp rotation delta based on edge distance
-//        if (collisionResult.EdgeObstacle && rotateInput != 0)
-//        {
-//            if (collisionResult.EdgeObstacleSide > 0)
-//                rotateDelta = Mathf.Min(rotateEdgeDelta, rotateDelta);
-//            else
-//                rotateDelta = Mathf.Max(rotateEdgeDelta, rotateDelta);
-//        }
-
-
-//        transform.Rotate(Vector3.forward, rotateDelta);
-
-
-//        float sway = rotateDelta == 0f ? 0f : rotateDelta > 0f ? 1f : -1f;
-
-//        if (m_PlayerSprite)
-//        {
-//            Quaternion targetRotation = transform.rotation;
-//            targetRotation *= Quaternion.Euler(0, 0, sway * m_RotateSwayDistance);
-
-//            m_PlayerSprite.transform.rotation = Quaternion.Slerp(m_PlayerSprite.transform.rotation, targetRotation, m_RotateSwayDampSpeed * Time.deltaTime);
-//        }
-//    }
-
-
-//    private void CheckDeath(CollisionResult collisionResult)
-//    {
-
-//#if UNITY_EDITOR
-//        if (!m_CanDie)
-//            return;
-//#endif
-
-//        if (collisionResult.FatalObjstacle)
-//        {
-//            // DONT FORGET TO ADD GLOBAL MOVE SPEED
-//            float obstacleMoveDelta = collisionResult.FatalObjstacle.MoveSpeedMultiplier * Time.deltaTime / 2f;
-
-//            if (collisionResult.FatalObjstacleDistance < 0f && Mathf.Abs(collisionResult.FatalObjstacleDistance) < obstacleMoveDelta)
-//            {
-//                Debug.Log("Death");           
-//            }
-//        }
-//    }
-
-
-//    private CollisionResult GetCollisionResult()
-//    {
-
-//        CollisionResult result = new CollisionResult();
-
-//        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
-
-
-//        foreach (Obstacle obstacle in obstacles)
-//        {
-
-//            // Check if player is inside of ring
-//            float outerEdgePoint = obstacle.Distance / 2f;
-//            float innerEdgePoint = Mathf.Max(0f, outerEdgePoint - (obstacle.EdgeWith / 2f));
-//            float playerPoint = m_PointerTransform.localPosition.y;
-
-//            float outerEdgeDistanceToPlayerPoint = playerPoint - outerEdgePoint;
-//            float innerEdgeDistanceToPlayerPoint = playerPoint - innerEdgePoint;
-
-//            bool bInsideRing = innerEdgeDistanceToPlayerPoint > 0 && outerEdgeDistanceToPlayerPoint < 0;
-
-//            float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.Rotation * 360f) / 180f);
-//            float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.Rotation * 360f);
-
-
-//            float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (obstacle.FillAngle * 180f));
-//            bool bInsideAngle = dotAwayFromPlayer < obstacle.FillAngle;
-//            int side = angleFromCenter > 0 ? 1 : -1;
-
-
-//            if(bInsideRing)
-//            {
-//                if(result.EdgeObstacleAngle > angleFromEdge || !result.EdgeObstacle)
-//                {
-//                    result.EdgeObstacle = obstacle;
-
-//                    result.EdgeObstacleSide = side;
-//                    result.EdgeObstacleAngle = angleFromEdge;
-//                }
-//            }
-
-
-//            if (bInsideAngle)
-//            {
-//                if (result.FatalObjstacleDistance < Mathf.Abs(innerEdgeDistanceToPlayerPoint)  || !result.FatalObjstacle)
-//                {
-//                    if (outerEdgeDistanceToPlayerPoint < 0)
-//                    {
-//                        result.FatalObjstacle = obstacle;
-
-//                        result.FatalObjstacleDistance = innerEdgeDistanceToPlayerPoint;
-//                    }
-//                }
-//            }
-//        }
-
-//        return result;
-//    }
-
-
-//    [System.Serializable]
-//    public struct CollisionResult
-//    {
-//        public Obstacle FatalObjstacle;
-//        public float FatalObjstacleDistance;
-
-//        public Obstacle EdgeObstacle;
-//        public float EdgeObstacleAngle;
-//        public int EdgeObstacleSide;
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-//private void HandleRotation(CollisionResult collisionResult)
-//{
-
-//    float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
-//    float rotateDelta = m_RotateSpeed * Time.deltaTime * rotateInput;
-
-
-//    float rotateEdgeDelta = collisionResult.EdgeObstacleSide * collisionResult.EdgeObstacleAngle;
-
-
-//    //Clamp rotation delta based on edge distance
-//    if (collisionResult.EdgeObstacle && rotateInput != 0)
-//    {
-//        if (collisionResult.EdgeObstacleSide > 0)
-//            rotateDelta = Mathf.Min(rotateEdgeDelta, rotateDelta);
-//        else
-//            rotateDelta = Mathf.Max(rotateEdgeDelta, rotateDelta);
-//    }
-
-
-//    transform.Rotate(Vector3.forward, rotateDelta);
-
-
-//    float sway = rotateDelta == 0f ? 0f : rotateDelta > 0f ? 1f : -1f;
-
-//    if (m_PlayerSprite)
-//    {
-//        Quaternion targetRotation = transform.rotation;
-//        targetRotation *= Quaternion.Euler(0, 0, sway * m_RotateSwayDistance);
-
-//        m_PlayerSprite.transform.rotation = Quaternion.Slerp(m_PlayerSprite.transform.rotation, targetRotation, m_RotateSwayDampSpeed * Time.deltaTime);
-//    }
-//}
-
-
-//private void CheckDeath(CollisionResult collisionResult)
-//{
-
-//#if UNITY_EDITOR
-//    if (!m_CanDie)
-//        return;
-//#endif
-
-//    if (collisionResult.FatalObjstacle)
-//    {
-//        // DONT FORGET TO ADD GLOBAL MOVE SPEED
-//        float obstacleMoveDelta = collisionResult.FatalObjstacle.MoveSpeedMultiplier * Time.deltaTime / 2f;
-
-//        if (collisionResult.FatalObjstacleDistance < 0f && Mathf.Abs(collisionResult.FatalObjstacleDistance) < obstacleMoveDelta)
-//        {
-//            OnDeath();
-//        }
-//    }
-//}
-
-//private void OnDeath()
-//{
-//    Debug.Log("Died");
-//    m_PlayerSprite.color = Color.red;
-//    Time.timeScale = 0;
-//}
-
-//private CollisionResult GetCollisionResult()
-//{
-
-//    CollisionResult result = new CollisionResult();
-
-//    Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
-
-
-//    foreach (Obstacle obstacle in obstacles)
-//    {
-
-//        // Check if player is inside of ring
-//        float outerEdgePoint = obstacle.Distance / 2f;
-//        float innerEdgePoint = Mathf.Max(0f, outerEdgePoint - (obstacle.EdgeWith / 2f));
-//        float playerPoint = m_PointerTransform.localPosition.y;
-
-//        float outerEdgeDistanceToPlayerPoint = playerPoint - outerEdgePoint;
-//        float innerEdgeDistanceToPlayerPoint = playerPoint - innerEdgePoint;
-
-//        bool bInsideRing = innerEdgeDistanceToPlayerPoint > 0 && outerEdgeDistanceToPlayerPoint < 0;
-
-//        float dotAwayFromPlayer = Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.Rotation * 360f) / 180f);
-//        float angleFromCenter = Mathf.DeltaAngle(transform.eulerAngles.z, obstacle.Rotation * 360f);
-
-
-//        float angleFromEdge = Mathf.Max(0, Mathf.Abs(angleFromCenter) - (obstacle.FillAngle * 180f));
-//        bool bInsideAngle = dotAwayFromPlayer < obstacle.FillAngle;
-//        int side = angleFromCenter > 0 ? 1 : -1;
-
-
-//        if (bInsideRing)
-//        {
-//            if (result.EdgeObstacleAngle > angleFromEdge || !result.EdgeObstacle)
-//            {
-//                result.EdgeObstacle = obstacle;
-
-//                result.EdgeObstacleSide = side;
-//                result.EdgeObstacleAngle = angleFromEdge;
-//            }
-//        }
-
-
-//        if (bInsideAngle)
-//        {
-//            if (result.FatalObjstacleDistance < Mathf.Abs(innerEdgeDistanceToPlayerPoint) || !result.FatalObjstacle)
-//            {
-//                if (outerEdgeDistanceToPlayerPoint < 0)
-//                {
-//                    result.FatalObjstacle = obstacle;
-
-//                    result.FatalObjstacleDistance = innerEdgeDistanceToPlayerPoint;
-//                }
-//            }
-//        }
-//    }
-
-//    return result;
-//}
-
-
-//[System.Serializable]
-//public struct CollisionResult
-//{
-//    public Obstacle FatalObjstacle;
-//    public float FatalObjstacleDistance;
-
-//    public Obstacle EdgeObstacle;
-//    public float EdgeObstacleAngle;
-//    public int EdgeObstacleSide;
-//}

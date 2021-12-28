@@ -89,6 +89,14 @@ public class ObstacleManager : MonoBehaviour
         }    
     }
 
+    public void MoveObstacles(float _delta)
+    {
+        for (int i = 0; i < ActiveObstacles.Count; i++)
+        {
+            ActiveObstacles[i].Distance += _delta;
+        }
+    }
+
 
 
 
