@@ -2261,6 +2261,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8793022498703710352, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069316, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2308,6 +2312,26 @@ PrefabInstance:
     - target: {fileID: 8793022499031069318, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_DSway
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_AddInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_DAddInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_PassWalls
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
+      propertyPath: m_Invincible
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8793022499031069319, guid: 7ce0a339e37a1804b9fe876b098bf0bf, type: 3}
       propertyPath: m_ObstacleManager

@@ -16,7 +16,7 @@ MonoBehaviour:
   SpawnObstacles:
   - FillAngle: 67
     Rotation: 0
-    EdgeWith: 3
+    EdgeWith: 7.79
     DistanceOffset: 0
     MoveSpeedMultiplier: 0
     Scale: 0

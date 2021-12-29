@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,23 +6,53 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float m_RotateSpeed;
-    [SerializeField] private float m_RotateSwayDistance;
-    [SerializeField] private float m_RotateSwayDampSpeed;
-    [SerializeField] private float m_PlayerDistance;
-    [SerializeField] private Transform m_PointerTransform;
-    [SerializeField] private SpriteRenderer m_PlayerSprite;
-    [SerializeField] private ObstacleManager m_ObstacleManager;
+
+    [FoldoutGroup("PlayerMovement"), SerializeField]
+    private float m_RotateSpeed;
+
+    [FoldoutGroup("SFX"), SerializeField]
+    private float m_RotateSwayDistance;
+
+    [FoldoutGroup("SFX"), SerializeField]
+    private float m_RotateSwayDampSpeed;
+
+
+    [FoldoutGroup("General"), SerializeField]
+    private float m_PlayerDistance;
+
+
+    [FoldoutGroup("Components"), SerializeField]
+    private Transform m_PointerTransform;
+
+    [FoldoutGroup("Components"), SerializeField]
+    private SpriteRenderer m_PlayerSprite;
+
+    [FoldoutGroup("Components"), SerializeField]
+    private ObstacleManager m_ObstacleManager;
+
+
 
     private bool m_Death;
-
     private Controls m_Controls;
     private Obstacle m_InevitableFatalObstacle;
 
 
+
 #if UNITY_EDITOR
-    [SerializeField] 
-    private bool m_CanDie;
+    [FoldoutGroup("Debug"), SerializeField]
+    private bool m_DInvincible;
+
+    [FoldoutGroup("Debug"), SerializeField]
+    private bool m_DPassWalls;
+
+    [FoldoutGroup("Debug"), SerializeField]
+    private bool m_DShowCollision;
+
+    [FoldoutGroup("Debug"), SerializeField]
+    private int m_DAddInput;
+
+    [FoldoutGroup("Debug"), SerializeField]
+    private bool m_DSway;
 #endif
 
 
@@ -40,20 +71,22 @@ public class PlayerController : MonoBehaviour
         HandlePlayerRotation(result);
         CheckDeath(result);
 
+#if UNITY_EDITOR
 
-        //// DEBUG
-        //Obstacle[] obstacles = m_ObstacleManager.ActiveObstacles.ToArray();
+        // DEBUG
+        Obstacle[] obstacles = m_ObstacleManager.ActiveObstacles.ToArray();
 
-        //// Reset 
-        //for (int i = 0; i < obstacles.Length; i++)        
-        //    obstacles[i].GetComponent<SpriteRenderer>().color = Color.white;
-        
+        // Reset 
+        for (int i = 0; i < obstacles.Length; i++)
+            obstacles[i].GetComponent<SpriteRenderer>().color = Color.white;
 
-        //if (result.FatalObjstacle)
-        //    result.FatalObjstacle.GetComponent<SpriteRenderer>().color = Color.red;
 
-        //if (result.EdgeObstacle)
-        //    result.EdgeObstacle.GetComponent<SpriteRenderer>().color = Color.green;
+        if (result.FatalObjstacle)
+            result.FatalObjstacle.GetComponent<SpriteRenderer>().color = Color.red;
+
+        if (result.EdgeObstacle)
+            result.EdgeObstacle.GetComponent<SpriteRenderer>().color = Color.green;
+#endif
     }
 
 
@@ -62,7 +95,16 @@ public class PlayerController : MonoBehaviour
     {
         // Get Rotate Delta
         float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
+
+#if UNITY_EDITOR
+        rotateInput += m_DAddInput;
+#endif
+
         float rotateDelta = Time.deltaTime * m_RotateSpeed * rotateInput;
+
+#if UNITY_EDITOR
+        if(!m_DPassWalls)
+#endif
 
         // Clamp Rotate Delta to stop player from going through walls 
         if (result.EdgeObstacle)
@@ -72,6 +114,24 @@ public class PlayerController : MonoBehaviour
 
         // Apply rotation to player
         transform.Rotate(Vector3.forward, rotateDelta);
+
+
+#if UNITY_EDITOR
+        if (!m_DSway)
+            return;
+#endif
+
+
+        // Get Rotate Sway Direction
+        float rotateSway = rotateDelta == 0f ? 0f : rotateDelta > 0f ? 1f : -1f;
+
+        if (m_PlayerSprite)
+        {
+            Quaternion targetRotation = transform.rotation;
+            targetRotation *= Quaternion.Euler(0, 0, rotateSway * m_RotateSwayDistance);
+
+            m_PlayerSprite.transform.rotation = Quaternion.Slerp(m_PlayerSprite.transform.rotation, targetRotation, m_RotateSwayDampSpeed * Time.deltaTime);
+        }
     }
 
     private void CheckDeath(CollisionResult result)
@@ -79,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
 
 #if UNITY_EDITOR
-        if (!m_CanDie)
+        if (m_DInvincible)
             return;
 #endif
 
@@ -145,6 +205,8 @@ public class PlayerController : MonoBehaviour
 
             float angleDelta = Mathf.DeltaAngle(transform.eulerAngles.z, obstacles[i].Rotation);
             bool bInsideObstacleFill = Mathf.Abs(angleDelta) < (obstacles[i].FillAngle / 2f);
+
+            Debug.Log(bInsideObstacleFill);
 
 
             // If player is inside obstacle fill angle
