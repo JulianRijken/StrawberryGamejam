@@ -43,16 +43,7 @@ public class PlayerController : MonoBehaviour
     private bool m_DInvincible;
 
     [FoldoutGroup("Debug"), SerializeField]
-    private bool m_DPassWalls;
-
-    [FoldoutGroup("Debug"), SerializeField]
     private bool m_DShowCollision;
-
-    [FoldoutGroup("Debug"), SerializeField]
-    private int m_DAddInput;
-
-    [FoldoutGroup("Debug"), SerializeField]
-    private bool m_DSway;
 #endif
 
 
@@ -95,16 +86,9 @@ public class PlayerController : MonoBehaviour
     {
         // Get Rotate Delta
         float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
-
-#if UNITY_EDITOR
-        rotateInput += m_DAddInput;
-#endif
-
         float rotateDelta = Time.deltaTime * m_RotateSpeed * rotateInput;
 
-#if UNITY_EDITOR
-        if(!m_DPassWalls)
-#endif
+
 
         // Clamp Rotate Delta to stop player from going through walls 
         if (result.EdgeObstacle)
@@ -116,10 +100,6 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.forward, rotateDelta);
 
 
-#if UNITY_EDITOR
-        if (!m_DSway)
-            return;
-#endif
 
 
         // Get Rotate Sway Direction
@@ -198,35 +178,17 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < obstacles.Length; i++)
         {
-
+            // Global Input Data \\
             float outerEdgeDistance = Mathf.Max(0f, obstacles[i].Distance);
             float innerEdgeDistance = Mathf.Max(0f, obstacles[i].Distance - obstacles[i].EdgeWith);
-
-
             float angleDelta = Mathf.DeltaAngle(transform.eulerAngles.z, obstacles[i].Rotation);
+
+
+            // Get Fatal Obstacle \\
+
             bool bInsideObstacleFill = Mathf.Abs(angleDelta) < (obstacles[i].FillAngle / 2f);
 
-
-
-            // If player is inside obstacle fill angle
-            if (!bInsideObstacleFill)
-            {
-                bool bBlockedByObstacle = m_PlayerDistance >= innerEdgeDistance && m_PlayerDistance <= outerEdgeDistance;
-                if (bBlockedByObstacle)
-                {
-                    float edgeDistance = Mathf.Max(0f, Mathf.Abs(angleDelta) - (obstacles[i].FillAngle / 2f));
-
-                    if (edgeDistance < result.EdgeObstacle_EdgeDistance || !result.EdgeObstacle)
-                    {
-                        result.EdgeObstacle = obstacles[i];
-                        result.EdgeObstacle_AngleDelta = angleDelta;
-                        result.EdgeObstacle_EdgeDistance = edgeDistance;
-                    }
-                }
-            }
-
-            // If player is inside fill angle
-            else
+            if (bInsideObstacleFill)
             {
                 float distanceToObstalce = innerEdgeDistance - m_PlayerDistance;
 
@@ -236,9 +198,30 @@ public class PlayerController : MonoBehaviour
                     {
                         result.FatalObjstacle = obstacles[i];
                         result.FatalObjstacle_DistanceToObstalce = distanceToObstalce;
+                        continue;
                     }
                 }
             }
+
+
+
+            // Get Edge Obstacle \\
+
+            bool bBlockedByObstacle = m_PlayerDistance >= innerEdgeDistance && m_PlayerDistance <= outerEdgeDistance;
+
+            if (bBlockedByObstacle)
+            {
+                float edgeDistance = Mathf.Max(0f, Mathf.Abs(angleDelta) - (obstacles[i].FillAngle / 2f));
+
+                if (edgeDistance < result.EdgeObstacle_EdgeDistance || !result.EdgeObstacle)
+                {
+                    result.EdgeObstacle = obstacles[i];
+                    result.EdgeObstacle_AngleDelta = angleDelta;
+                    result.EdgeObstacle_EdgeDistance = edgeDistance;
+                    continue;
+                }
+            }
+
         }
 
         return result;

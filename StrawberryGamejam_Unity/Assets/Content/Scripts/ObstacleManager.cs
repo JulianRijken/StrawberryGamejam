@@ -31,13 +31,12 @@ public class ObstacleManager : MonoBehaviour
         InactiveObstacles = new List<Obstacle>();
 
         AddStandardPoolObjects();
-        SpawnObstacleGroup(m_TestGroup);
+        //SpawnObstacleGroup(m_TestGroup);
     }
 
 
     private void Update()
     {
-
         UpdateObstacles();
     }
 
