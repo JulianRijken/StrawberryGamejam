@@ -206,7 +206,6 @@ public class PlayerController : MonoBehaviour
             float angleDelta = Mathf.DeltaAngle(transform.eulerAngles.z, obstacles[i].Rotation);
             bool bInsideObstacleFill = Mathf.Abs(angleDelta) < (obstacles[i].FillAngle / 2f);
 
-            Debug.Log(bInsideObstacleFill);
 
 
             // If player is inside obstacle fill angle
