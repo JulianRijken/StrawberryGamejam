@@ -10,12 +10,12 @@ public class PlayerController : MonoBehaviour
     [FoldoutGroup("PlayerMovement"), SerializeField]
     private float m_RotateSpeed;
 
-    [FoldoutGroup("SFX"), SerializeField]
+
+    [FoldoutGroup("General"), SerializeField]
     private float m_RotateSwayDistance;
 
-    [FoldoutGroup("SFX"), SerializeField]
+    [FoldoutGroup("General"), SerializeField]
     private float m_RotateSwayDampSpeed;
-
 
     [FoldoutGroup("General"), SerializeField]
     private float m_PlayerDistance;
