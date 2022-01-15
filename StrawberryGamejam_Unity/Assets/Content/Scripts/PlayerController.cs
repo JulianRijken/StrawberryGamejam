@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
 
 
+
     private bool m_Death;
     private Controls m_Controls;
     private Obstacle m_InevitableFatalObstacle;
@@ -62,6 +63,8 @@ public class PlayerController : MonoBehaviour
         HandlePlayerRotation(result);
         CheckDeath(result);
 
+
+
 #if UNITY_EDITOR
 
         // DEBUG
@@ -87,8 +90,6 @@ public class PlayerController : MonoBehaviour
         // Get Rotate Delta
         float rotateInput = -m_Controls.Player.Rotate.ReadValue<float>();
         float rotateDelta = Time.deltaTime * m_RotateSpeed * rotateInput;
-
-
 
         // Clamp Rotate Delta to stop player from going through walls 
         if (result.EdgeObstacle)

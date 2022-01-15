@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ObjectPool<T> where T : MonoBehaviour
+public class ObjectPool<T> where T : Component
 {
 
-    private List<T> m_PooledObjects;
+    public List<T> m_PooledObjects = new List<T>();
 
     public ObjectPool(int defaltSpawnCount = 0)
     {
@@ -26,12 +26,12 @@ public class ObjectPool<T> where T : MonoBehaviour
     }
 
 
-    public T GetObject(Vector3 position, Quaternion rotation, Transform parent = null)
+    public T GetObject(Vector3 position, Quaternion rotation, string name, Transform parent = null)
     {
-        return GetObject(position, rotation, out _, parent);
+        return GetObject(position, rotation, out _, name, parent);
     }
 
-    public T GetObject(Vector3 position, Quaternion rotation, out bool createdNew, Transform parent = null)
+    public T GetObject(Vector3 position, Quaternion rotation, out bool createdNew, string name, Transform parent = null)
     {
         // Get object from pool
         T spawnedObject = GetInactiveObject();
@@ -54,7 +54,13 @@ public class ObjectPool<T> where T : MonoBehaviour
         // Set active and settings
         spawnedObject.gameObject.SetActive(true);
 
-        if(parent) spawnedObject.transform.parent = parent;
+
+        if (parent)
+        {
+            spawnedObject.transform.parent = parent;
+        }
+
+        spawnedObject.gameObject.name = name;
         spawnedObject.transform.position = position;
         spawnedObject.transform.rotation = rotation;
 

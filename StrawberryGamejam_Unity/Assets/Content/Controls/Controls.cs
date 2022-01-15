@@ -229,6 +229,52 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""86b31ad3-9c7c-4417-9b9e-ea120ee6cbd0"",
+            ""actions"": [
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5f171da-130e-4c59-8fd5-461acc32833b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""f473db8b-cc1e-4cc8-8e88-0c257ca4669c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""30397edf-b3ab-47ba-8dab-fae997a21626"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a7285a6-2529-422f-a590-631a104b76ad"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -240,6 +286,10 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_Restart = m_Game.FindAction("Restart", throwIfNotFound: true);
         m_Game_Quit = m_Game.FindAction("Quit", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Left = m_UI.FindAction("Left", throwIfNotFound: true);
+        m_UI_Right = m_UI.FindAction("Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,6 +409,47 @@ public class @Controls : IInputActionCollection, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Left;
+    private readonly InputAction m_UI_Right;
+    public struct UIActions
+    {
+        private @Controls m_Wrapper;
+        public UIActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Left => m_Wrapper.m_UI_Left;
+        public InputAction @Right => m_Wrapper.m_UI_Right;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @Left.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeft;
+                @Right.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRight;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerActions
     {
         void OnRotate(InputAction.CallbackContext context);
@@ -367,5 +458,10 @@ public class @Controls : IInputActionCollection, IDisposable
     {
         void OnRestart(InputAction.CallbackContext context);
         void OnQuit(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
     }
 }
