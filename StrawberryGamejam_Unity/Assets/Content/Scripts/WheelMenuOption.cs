@@ -13,11 +13,14 @@ public class WheelMenuOption : MonoBehaviour
 
     public void SetAlpha(float alpha)
     {
+
+        // Set alpha for color 
         Color color = m_Text.color;
-
         color.a = alpha;
-
         m_Text.color = color;
+
+
+        m_Text.transform.localScale = Vector3.one * alpha;
 
     }
 

@@ -12,6 +12,7 @@ public class WheelMenu : MonoBehaviour
     [SerializeField] private float m_Spacing;
     [SerializeField] private int m_Buffer;
     [SerializeField] private float m_TransitionTime;
+    [SerializeField] private float m_Offset;
 
 
     [ReadOnly, ShowInInspector] private int m_SelectedIndex;
@@ -31,7 +32,11 @@ public class WheelMenu : MonoBehaviour
         for (int i = -m_Buffer; i <= m_Buffer; i++)
         {
             WheelMenuOption wheelOption = Instantiate(m_WheelMenuOptionPrefab, transform);
+
+          
             wheelOption.transform.rotation = Quaternion.Euler(Vector3.forward * (i * m_Spacing));
+            wheelOption.transform.position = transform.position + (wheelOption.transform.up * m_Offset);
+
             wheelMenuOptions.Add(i, wheelOption);
         }
     }
@@ -93,12 +98,11 @@ public class WheelMenu : MonoBehaviour
 
         if (delta == 0)
             return;
-  
+
+
 
         delta = Mathf.Clamp(delta,-1, 1);
-
         m_SelectedIndex += delta;
-
         m_SelectedIndex = m_SelectedIndex.ClampContinue(0, m_WheelOptions.Length);
 
         UpdateNames();

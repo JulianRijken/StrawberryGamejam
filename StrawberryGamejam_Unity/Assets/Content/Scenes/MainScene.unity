@@ -694,6 +694,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519998441}
   m_CullTransparentMesh: 1
+--- !u!1 &1621957724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621957726}
+  - component: {fileID: 1621957725}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1621957725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621957724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da16cba493d1094e88cbbb67729a539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SoundType: 0
+  m_testAction:
+    m_Name: Test
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dd238379-8fb5-4913-911c-42470ea86c4d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 8cf0687f-d194-49fa-9a7f-8922ca6c590e
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Test
+      m_Flags: 0
+--- !u!4 &1621957726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621957724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679625203
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,11 +801,12 @@ MonoBehaviour:
   - Play
   - Credits
   - Options
-  - LevelEditor
+  - Editor
   m_WheelMenuOptionPrefab: {fileID: 677993172304446616, guid: 629b0c7fbdf13144cbe7b6d6d2bf3ede, type: 3}
-  m_Spacing: 90
-  m_Buffer: 1
+  m_Spacing: 50
+  m_Buffer: 2
   m_TransitionTime: 0.2
+  m_Offset: 10
 --- !u!1 &1709711635
 GameObject:
   m_ObjectHideFlags: 0

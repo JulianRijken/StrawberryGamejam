@@ -26,6 +26,12 @@ public class ObjectPool<T> where T : Component
     }
 
 
+
+    public T GetObject(string name = "")
+    {
+        return GetObject(Vector3.zero, Quaternion.identity, out _, name);
+    }
+
     public T GetObject(Vector3 position, Quaternion rotation, string name, Transform parent = null)
     {
         return GetObject(position, rotation, out _, name, parent);
@@ -60,7 +66,8 @@ public class ObjectPool<T> where T : Component
             spawnedObject.transform.parent = parent;
         }
 
-        spawnedObject.gameObject.name = name;
+
+        spawnedObject.gameObject.name = name == "" ? $"PoolObject {typeof(T).Name}" : name;
         spawnedObject.transform.position = position;
         spawnedObject.transform.rotation = rotation;
 
