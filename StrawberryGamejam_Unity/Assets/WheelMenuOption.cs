@@ -1,15 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class WheelMenuOption : MonoBehaviour
 {
 
-    //[SerializeField] private float m_RotateDistance;
-    //[SerializeField] private float m_TransitionTime;
-    [SerializeField] private TextMeshPro m_Text;
-    //[SerializeField] private AnimationCurve m_MotionTimeCurve;
+    [SerializeField] 
+    private TextMeshPro m_Text;
+
+
+    [HideInInspector]
+    public float HideAngle;
+
+    public void SetAlpha(float alpha)
+    {
+        Color color = m_Text.color;
+
+        color.a = alpha;
+
+        m_Text.color = color;
+
+    }
+
 
     public string OptionName
     {
@@ -19,16 +30,6 @@ public class WheelMenuOption : MonoBehaviour
         }
     }
 
-    public float ColorAlpha
-    {
-        set
-        {
-            Color color = m_Text.color;
-            color.a = value;
-            m_Text.color = color;
-        }
-
-    }
 
     //public void Show(int direction)
     //{

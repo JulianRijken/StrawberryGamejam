@@ -738,27 +738,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WheelOptions:
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
-  - 15
+  - Play
+  - Credits
+  - Options
+  - LevelEditor
   m_WheelMenuOptionPrefab: {fileID: 677993172304446616, guid: 629b0c7fbdf13144cbe7b6d6d2bf3ede, type: 3}
-  m_Spacing: 40
-  m_Buffer: 4
-  m_TransitionTime: 1
-  m_SelectedIndex: 0
-  test: 4
+  m_Spacing: 90
+  m_Buffer: 1
+  m_TransitionTime: 0.2
 --- !u!1 &1709711635
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6253bdedb8b6dd84088471ab9490bc5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wheelMenu: {fileID: 1679625205}
 --- !u!4 &1709711637
 Transform:
   m_ObjectHideFlags: 0
