@@ -10,6 +10,10 @@ public class TestScriptDelete : MonoBehaviour
 
     [SerializeField] private InputAction m_testAction;
 
+    [SerializeField] private AudioSource test;
+    [SerializeField] private AudioClip testCliup;
+    [SerializeField] private bool testSenario;
+
     void Start()
     {
         m_testAction.Enable();
@@ -18,7 +22,15 @@ public class TestScriptDelete : MonoBehaviour
 
     private void OnPerformed(InputAction.CallbackContext context)
     {
-        AudioManager.PlaySound(m_SoundType, 0.5f);
+        if (testSenario)
+        {
+            AudioManager.PlaySound(m_SoundType, 0.5f);
+
+        }
+        else
+        {
+            test.PlayOneShot(testCliup);
+        }
     }
 
 

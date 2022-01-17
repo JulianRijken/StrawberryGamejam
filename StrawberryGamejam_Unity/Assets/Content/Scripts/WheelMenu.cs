@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Julian.Extention;
+using Julian.Sound;
 using Sirenix.OdinInspector;
 
 public class WheelMenu : MonoBehaviour
@@ -100,6 +101,7 @@ public class WheelMenu : MonoBehaviour
             return;
 
 
+        AudioManager.PlaySound(SoundType.select);
 
         delta = Mathf.Clamp(delta,-1, 1);
         m_SelectedIndex += delta;
