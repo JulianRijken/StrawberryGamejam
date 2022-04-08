@@ -911,9 +911,10 @@ MonoBehaviour:
   - Options
   - Editor
   m_WheelMenuOptionPrefab: {fileID: 677993172304446616, guid: 629b0c7fbdf13144cbe7b6d6d2bf3ede, type: 3}
-  m_Spacing: 50
+  m_Spacing: 70
   m_Buffer: 2
   m_TransitionTime: 0.2
+  m_UseOffset: 0
   m_Offset: 10
 --- !u!1 &1709711635
 GameObject:

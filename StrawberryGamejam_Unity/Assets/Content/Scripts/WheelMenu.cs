@@ -13,9 +13,14 @@ public class WheelMenu : MonoBehaviour
     [SerializeField] private float m_Spacing;
     [SerializeField] private int m_Buffer;
     [SerializeField] private float m_TransitionTime;
+
+    [SerializeField] private bool m_UseOffset;
+
+    [ShowIf("m_UseOffset")]
     [SerializeField] private float m_Offset;
 
 
+    [Title("Debug")]
     [ReadOnly, ShowInInspector] private int m_SelectedIndex;
     [ReadOnly, ShowInInspector] private bool m_Rotating;
 
@@ -36,7 +41,7 @@ public class WheelMenu : MonoBehaviour
 
           
             wheelOption.transform.rotation = Quaternion.Euler(Vector3.forward * (i * m_Spacing));
-            wheelOption.transform.position = transform.position + (wheelOption.transform.up * m_Offset);
+            wheelOption.transform.position = m_UseOffset ? transform.position + (wheelOption.transform.up * m_Offset) : transform.position;
 
             wheelMenuOptions.Add(i, wheelOption);
         }

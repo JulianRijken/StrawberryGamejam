@@ -37,14 +37,14 @@ namespace ntw.CurvedTextMeshPro
         /// </summary>
         [SerializeField]
         [Tooltip("The radius of the text circle arc")]
-        private float m_radius = 10.0f;
+        protected float m_radius = 10.0f;
 
         /// <summary>
         /// How much degrees the text arc should span
         /// </summary>
         [SerializeField]
         [Tooltip("How much degrees the text arc should span")]
-        private float m_arcDegrees = 90.0f;
+        protected float m_arcDegrees = 90.0f;
 
         /// <summary>
         /// The angular offset at which the arc should be centered, in degrees.
@@ -52,7 +52,7 @@ namespace ntw.CurvedTextMeshPro
         /// </summary>
         [SerializeField]
         [Tooltip("The angular offset at which the arc should be centered, in degrees")]
-        private float m_angularOffset = -90;
+        protected float m_angularOffset = -90;
 
         /// <summary>
         /// How many maximum degrees per letters should be. For instance, if you specify
@@ -62,7 +62,7 @@ namespace ntw.CurvedTextMeshPro
         /// </summary>
         [SerializeField]
         [Tooltip("The maximum angular distance between letters, in degrees")]
-        private int m_maxDegreesPerLetter = 360;
+        protected int m_maxDegreesPerLetter = 360;
 
         /// <summary>
         /// Previous value of <see cref="m_radius"/>

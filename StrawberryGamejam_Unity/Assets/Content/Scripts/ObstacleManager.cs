@@ -16,11 +16,11 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] private float Rate = 1f;
 
     public float GlobalMoveSpeed => m_GlobalMoveSpeed;
-
-
+    
     public List<Obstacle> ActiveObstacles { get; private set; }
     public List<Obstacle> InactiveObstacles { get; private set; }
 
+    
     //[SerializeField] private ObstacleGroup[] m_TestObstacles;
     [SerializeField] private ObstacleGroup m_TestGroup;
 
@@ -33,23 +33,14 @@ public class ObstacleManager : MonoBehaviour
         AddStandardPoolObjects();
         //SpawnObstacleGroup(m_TestGroup);
     }
-
-
+    
     private void Update()
     {
         UpdateObstacles();
     }
 
-    //private IEnumerator Testing()
-    //{
-    //    while (true)
-    //    {
-    //        SpawnObstacleGroup(m_TestGroup);
-    //        yield return new WaitForSeconds(Rate);
-    //    }
-    //}
 
-
+    
 
     private void SpawnObstacleGroup(ObstacleGroup obstacleGroup)
     {
@@ -125,12 +116,12 @@ public class ObstacleManager : MonoBehaviour
     }
 
 
-    public Obstacle GetNewObstacle()
+    private Obstacle GetNewObstacle()
     {
         return GetNewObstacle(Vector3.zero, Quaternion.identity);
     }
 
-    public Obstacle GetNewObstacle(Vector3 position, Quaternion rotation)
+    private Obstacle GetNewObstacle(Vector3 position, Quaternion rotation)
     {
         Obstacle spawnedObject;
 
@@ -157,7 +148,7 @@ public class ObstacleManager : MonoBehaviour
     }
 
 
-    public void HideObstacle(Obstacle obstacle)
+    private void HideObstacle(Obstacle obstacle)
     {
         ActiveObstacles.Remove(obstacle);
         InactiveObstacles.Add(obstacle);

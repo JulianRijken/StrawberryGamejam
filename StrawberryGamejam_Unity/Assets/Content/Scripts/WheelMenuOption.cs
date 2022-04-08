@@ -1,27 +1,23 @@
 using UnityEngine;
 using TMPro;
+using ntw.CurvedTextMeshPro;
 
 public class WheelMenuOption : MonoBehaviour
 {
 
-    [SerializeField] 
-    private TextMeshPro m_Text;
 
 
-    [HideInInspector]
-    public float HideAngle;
+    [SerializeField] private TextMeshPro m_Text;
+    [SerializeField] private Animator m_Animator;
+    private const string m_AnimatorAlphaParameter = "Alpha";
+
+
 
     public void SetAlpha(float alpha)
     {
+        m_Animator.SetFloat(m_AnimatorAlphaParameter, alpha);
 
-        // Set alpha for color 
-        Color color = m_Text.color;
-        color.a = alpha;
-        m_Text.color = color;
-
-
-        m_Text.transform.localScale = Vector3.one * alpha;
-
+        Debug.LogError("Text mesh pro updating in animation overwrites other script :(");
     }
 
 
@@ -32,6 +28,8 @@ public class WheelMenuOption : MonoBehaviour
             m_Text.text = value;
         }
     }
+
+
 
 
     //public void Show(int direction)
