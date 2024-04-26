@@ -1,3 +1,3 @@
 # Strawberry Gamejam
-## [Play Game]([https://julianrijken.com/AfterBurnerII](https://julianrijken.itch.io/strawberrygamejam-julian))
+## [Play the game](https://julianrijken.itch.io/strawberrygamejam-julian)
 
